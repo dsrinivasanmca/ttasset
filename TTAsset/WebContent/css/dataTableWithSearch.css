@@ -1,0 +1,7 @@
+@CHARSET "ISO-8859-1";
+tfoot input 
+{
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+}
