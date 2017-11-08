@@ -74,7 +74,7 @@ public class BranchDAO
 				if(rs.next())
 				{	
 					int branchid = rs.getInt("branchid"); 
-					insertQuery = "insert into branchlog(branchid,branchname,address1,address2,address3,address4,postalcode,city,state,country,status,modifiedby,modifydatetime,description) values('"+branchid+"','"+branchName+"','"+address1+"','"+address2+"','"+address3+"','"+address4+"','"+postalCode+"','"+city+"','"+state+"','"+country+"','1','"+createdByUserID+"',current_timestamp,'newly created')";
+					insertQuery = "insert into branchlog(branchid,branchname,address1,address2,address3,address4,postalcode,city,state,country,status,modifiedby,modifydatetime,description) values('"+branchid+"','"+branchName+"','"+address1+"','"+address2+"','"+address3+"','"+address4+"','"+postalCode+"','"+city+"','"+state+"','"+country+"','1','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual),'newly created')";
 					stmt.executeQuery(insertQuery);
 					actionResult = "Success";
 					actionReport = "BranchName "+branchName.toUpperCase()+" Created Successfully";
@@ -138,8 +138,7 @@ public class BranchDAO
 				branchBeanOB2.setCountry(rs.getString("country"));
 				branchBeanOB2.setBranchStatus(rs.getInt("status"));
 				branchBeanOB2.setCreatedByUserID(rs.getInt("createdby"));
-				branchBeanOB2.setCreationDate(rs.getDate("creationdatetime"));
-				branchBeanOB2.setCreationTime(rs.getTime("creationdatetime"));
+				branchBeanOB2.setCreationDateTime(rs.getString("creationdatetime"));				
 				branchBeanOB1.add(branchBeanOB2);
 			}			
 		}
@@ -483,7 +482,7 @@ public class BranchDAO
 				else
 				{
 					rs.close();
-					insertQuery = "insert into branchlog(branchid,branchname,address1,address2,address3,address4,postalcode,city,state,country,status,modifiedby,modifydatetime,description) values('"+branchID+"','"+newBranchName+"','"+newAddress1+"','"+newAddress2+"','"+newAddress3+"','"+newAddress4+"','"+newPostalCode+"','"+newCity+"','"+newState+"','"+newCountry+"','"+newStatus+"','"+createdByUserID+"',current_timestamp,'"+description+"')";				
+					insertQuery = "insert into branchlog(branchid,branchname,address1,address2,address3,address4,postalcode,city,state,country,status,modifiedby,modifydatetime,description) values('"+branchID+"','"+newBranchName+"','"+newAddress1+"','"+newAddress2+"','"+newAddress3+"','"+newAddress4+"','"+newPostalCode+"','"+newCity+"','"+newState+"','"+newCountry+"','"+newStatus+"','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual),'"+description+"')";				
 					stmt.executeQuery(insertQuery);
 					actionResult = "Success";
 					actionReport = "Branch "+newBranchName.toUpperCase()+" Updated Successfully";
@@ -532,8 +531,7 @@ public class BranchDAO
 				branchBeanOB2.setCountry(rs.getString("country"));
 				branchBeanOB2.setBranchStatus(rs.getInt("status"));
 				branchBeanOB2.setCreatedByUserID(rs.getInt("modifiedby"));
-				branchBeanOB2.setCreationDate(rs.getDate("modifydatetime"));
-				branchBeanOB2.setCreationTime(rs.getTime("modifydatetime"));
+				branchBeanOB2.setCreationDateTime(rs.getString("modifydatetime"));				
 				branchBeanOB2.setDescription(rs.getString("description"));
 				branchBeanOB1.add(branchBeanOB2);
 			}			

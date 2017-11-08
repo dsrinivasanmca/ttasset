@@ -52,7 +52,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 		String userLastName;
 		String mobileNo;
 		String emailID;
-		Date joiningDate;
+		String joiningDate;
 		String roleName;
 		int departmentID;
 		String departmentName;
@@ -62,8 +62,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 		String genderValue="null";
 		int status;
 		String statusValue="null";
-		Date creationDate;
-		Date creationTime;
+		String creationDateTime;		
 		int createdByUserID;
 		String createdByUserEmployeeID;
 		String createdByUserFirstName;
@@ -595,8 +594,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 									{
 										statusValue="DeActive";
 									}				
-									creationDate = userBeanOB3.get(i).getCreationDate();
-									creationTime = userBeanOB3.get(i).getCreationTime();
+									creationDateTime = userBeanOB3.get(i).getCreationDateTime();									
 									createdByUserID = userBeanOB3.get(i).getCreatedByUserID();						
 									UserBean userBeanOB4 = new UserBean();
 									userBeanOB4.setSearchQuery(" where userid='"+createdByUserID+"'");
@@ -647,9 +645,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 											<%=createdByUserFirstName%>
 										</td>
 										<td>
-											<%=creationDate%>
-											<br>
-											<%=creationTime%>
+											<%=creationDateTime%>											
 										</td>
 										<td>
 											<input type="hidden" name="sourceJSP" value="editUser.jsp"></input>
@@ -774,8 +770,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 				{
 					statusValue="DeActive";
 				}				
-				creationDate = userBeanOB3.get(0).getCreationDate();
-				creationTime = userBeanOB3.get(0).getCreationTime();
+				creationDateTime = userBeanOB3.get(0).getCreationDateTime();				
 				createdByUserID = userBeanOB3.get(0).getCreatedByUserID();						
 				UserBean userBeanOB4 = new UserBean();
 				userBeanOB4.setSearchQuery(" where userid='"+createdByUserID+"'");
@@ -877,9 +872,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 									<%=createdByUserFirstName%>
 								</td>
 								<td>
-									<%=creationDate%>
-									<br>
-									<%=creationTime%>
+									<%=creationDateTime%>									
 								</td>
 							</tr>											
 						</tbody>				
@@ -1064,24 +1057,20 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
           	  								companyBeanOB2.add(companyBeanOB1);
           	  								companyDAOOB1 = new CompanyDAO();
           	  								companyBeanOB3 = companyDAOOB1.viewCompany(companyBeanOB2);
-          	  								Date companyOpeningDate = companyBeanOB3.get(0).getOpeningDate();          	  								
+          	  								String companyOpeningDate = companyBeanOB3.get(0).getOpeningDate();          	  								
                     						DateBean dateBeanOB1 = new DateBean();	
-                    						String todayDate = dateBeanOB1.getTodayDate();
-                    						dateBeanOB1.setDateFormat1(companyOpeningDate);
-                    						String companyOpeningDateString = dateBeanOB1.getDateFormat2();
-                    						dateBeanOB1.setDateFormat1(joiningDate);
-                    						String joiningDateString = dateBeanOB1.getDateFormat2();
+                    						String todayDate = dateBeanOB1.getTodayDate();                    						                    						
                     						dateBeanOB1 = null;
                     						companyBeanOB1 = null;
                     						companyBeanOB2 = null;
                     						companyBeanOB3 = null;
                     						companyDAOOB1 = null;
                     					%>
-											<input type="hidden" name="oldJoiningDate" value="<%=joiningDateString%>">                   					
-    										<input type="hidden" id="startDate" value=<%=companyOpeningDateString%>>
+											<input type="hidden" name="oldJoiningDate" value="<%=joiningDate%>">                   					
+    										<input type="hidden" id="startDate" value=<%=companyOpeningDate%>>
     										<input type="hidden" id="endDate" value="<%=todayDate%>">      										        									        								                    
                     						<div class="input-group date form_date" data-date="" data-date-format="dd-mm-yyyy" data-link-field="newJoiningDate" data-link-format="dd-mm-yyyy">
-                    							<input class="form-control" size="16" type="text" name="newJoiningDate1" value="<%=joiningDateString%>" placeholder="<%=joiningDateString%>" readonly>                    							
+                    							<input class="form-control" size="16" type="text" name="newJoiningDate1" value="<%=joiningDate%>" placeholder="<%=joiningDate%>" readonly>                    							
 												<span class="input-group-addon">
 													<span class="glyphicon glyphicon-calendar"></span>
 												</span>

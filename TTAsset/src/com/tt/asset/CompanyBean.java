@@ -1,21 +1,19 @@
 package com.tt.asset;
 
-import java.util.Date;
 
 public class CompanyBean 
 {
 	private int companyID;
 	private String companyName;
 	private String oldCompanyName;
-	private Date openingDate;
-	private Date oldOpeningDate;
+	private String openingDate;
+	private String oldOpeningDate;
 	private String actionResult;
 	private String actionReport;
 	private int companyStatus;
 	private int oldCompanyStatus;
 	private int createdByUserID;
-	private Date creationDate;
-	private Date creationTime;
+	private String creationDateTime;
 	private String description;
 	private String searchQuery;	
 			
@@ -43,19 +41,19 @@ public class CompanyBean
 	{
 		return oldCompanyName;
 	}
-	public void setOldOpeningDate(Date OldOpeningDate)
+	public void setOldOpeningDate(String OldOpeningDate)
 	{
 		oldOpeningDate = OldOpeningDate;
 	}
-	public Date getOldOpeningDate()
+	public String getOldOpeningDate()
 	{
 		return oldOpeningDate;
 	}
-	public void setOpeningDate(Date newOpeningDate)
+	public void setOpeningDate(String newOpeningDate)
 	{
 		openingDate = newOpeningDate;
 	}
-	public Date getOpeningDate()
+	public String getOpeningDate()
 	{
 		return openingDate;
 	}
@@ -99,22 +97,15 @@ public class CompanyBean
 	{
 		return createdByUserID;
 	}
-	public void setCreationDate(Date newCreationDate)
+	public void setCreationDateTime(String newCreationDateTime)
 	{
-		creationDate = newCreationDate;		
-	}
-	public void setCreationTime(Date newCreationTime)
+		creationDateTime = newCreationDateTime;		
+	}	
+	public String getCreationDateTime()
 	{
-		creationTime = newCreationTime;		
+		return creationDateTime;
 	}
-	public Date getCreationDate()
-	{
-		return creationDate;
-	}
-	public Date getCreationTime()
-	{
-		return creationTime;
-	}
+	
 	public void setDescription(String newDescription)
 	{
 		description = newDescription;

@@ -22,8 +22,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null)
 	String departmentName;
 	int status;
 	String statusValue="null";
-	Date creationDate;
-	Date creationTime;
+	String creationDateTime;	
 	int createdByUserID;
 	String createdByUserEmployeeID;
 	String createdByUserFirstName;
@@ -118,8 +117,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null)
 						{
 							statusValue="DeActive";
 						}				
-						creationDate = departmentBeanOB3.get(i).getCreationDate();
-						creationTime = departmentBeanOB3.get(i).getCreationTime();
+						creationDateTime = departmentBeanOB3.get(i).getCreationDateTime();						
 						createdByUserID = departmentBeanOB3.get(i).getCreatedByUserID();
 						UserBean userBeanOB1 = new UserBean();
 						userBeanOB1.setSearchQuery(" where userid='"+createdByUserID+"'");
@@ -148,9 +146,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null)
 								<%=createdByUserFirstName%>
 							</td>
 							<td>
-								<%=creationDate%>
-								<br>
-								<%=creationTime%>
+								<%=creationDateTime%>								
 							</td>
 						</tr>
 					<%

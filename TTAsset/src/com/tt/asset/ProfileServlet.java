@@ -2,7 +2,6 @@ package com.tt.asset;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -128,7 +127,7 @@ public class ProfileServlet extends HttpServlet {
 								int newDepartmentID = userBeanOB4.get(0).getUserDepartmentID();
 								int newDesignationID = userBeanOB4.get(0).getUserDesignationID();
 								String newEmployeeID = userBeanOB4.get(0).getUserEmployeeID();
-								Date newJoiningDate = userBeanOB4.get(0).getUserJoiningDate();
+								String newJoiningDate = userBeanOB4.get(0).getUserJoiningDate();
 								String newRole = userBeanOB4.get(0).getUserRole();
 								int newStatus = userBeanOB4.get(0).getUserStatus();
 								String newGender = userBeanOB4.get(0).getUserGender();

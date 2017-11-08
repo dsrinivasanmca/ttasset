@@ -47,14 +47,14 @@ public class DepartmentDAO
 			{
 				con = ConnectionManager.getConnection();
 				stmt = con.createStatement();
-				insertQuery = "insert into departments(departmentid,departmentname,companyid,status,createdby,creationdatetime) values(departmentid.nextval,'"+departmentName+"','"+companyID+"','1','"+createdByUserID+"',current_timestamp)";
+				insertQuery = "insert into departments(departmentid,departmentname,companyid,status,createdby,creationdatetime) values(departmentid.nextval,'"+departmentName+"','"+companyID+"','1','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual))";
 				rs = stmt.executeQuery(insertQuery);
 				searchQuery = "select departmentid from departments where departmentname='"+departmentName+"' and companyid='"+companyID+"'"; 
 				rs = stmt.executeQuery(searchQuery);
 				if(rs.next())
 				{	
 					int departmentid = rs.getInt("departmentid"); 
-					insertQuery = "insert into departmentlog(departmentid,departmentname,status,modifiedby,modifydatetime,description) values('"+departmentid+"','"+departmentName+"','1','"+createdByUserID+"',current_timestamp,'newly created')";
+					insertQuery = "insert into departmentlog(departmentid,departmentname,status,modifiedby,modifydatetime,description) values('"+departmentid+"','"+departmentName+"','1','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual),'newly created')";
 					stmt.executeQuery(insertQuery);
 					actionResult = "Success";
 					actionReport = "DepartmentName "+departmentName.toUpperCase()+" Created Successfully";
@@ -110,8 +110,7 @@ public class DepartmentDAO
 				departmentBeanOB2.setDepartmentName(rs.getString("departmentname"));
 				departmentBeanOB2.setDepartmentStatus(rs.getInt("status"));
 				departmentBeanOB2.setCreatedByUserID(rs.getInt("createdby"));
-				departmentBeanOB2.setCreationDate(rs.getDate("creationdatetime"));
-				departmentBeanOB2.setCreationTime(rs.getTime("creationdatetime"));
+				departmentBeanOB2.setCreationDateTime(rs.getString("creationdatetime"));				
 				departmentBeanOB1.add(departmentBeanOB2);
 			}			
 		}		
@@ -252,7 +251,7 @@ public class DepartmentDAO
 				}
 				else
 				{
-					insertQuery = "insert into departmentlog(departmentid,departmentname,status,modifiedby,modifydatetime,description) values('"+departmentID+"','"+newDepartmentName+"','"+newStatus+"','"+createdByUserID+"',current_timestamp,'"+description+"')";					
+					insertQuery = "insert into departmentlog(departmentid,departmentname,status,modifiedby,modifydatetime,description) values('"+departmentID+"','"+newDepartmentName+"','"+newStatus+"','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual),'"+description+"')";					
 					stmt.executeQuery(insertQuery);
 					actionResult = "Success";
 					actionReport = "Department "+newDepartmentName.toUpperCase()+" Updated Successfully";
@@ -294,8 +293,7 @@ public class DepartmentDAO
 				departmentBeanOB2.setDepartmentName(rs.getString("departmentname"));
 				departmentBeanOB2.setDepartmentStatus(rs.getInt("status"));
 				departmentBeanOB2.setCreatedByUserID(rs.getInt("modifiedby"));
-				departmentBeanOB2.setCreationDate(rs.getDate("modifydatetime"));
-				departmentBeanOB2.setCreationTime(rs.getTime("modifydatetime"));
+				departmentBeanOB2.setCreationDateTime(rs.getString("modifydatetime"));				
 				departmentBeanOB2.setDescription(rs.getString("description"));
 				departmentBeanOB1.add(departmentBeanOB2);
 			}			

@@ -26,8 +26,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null)
 		String departmentName = null;
 		int status = 0;
 		String statusValue="null";
-		Date modifiedDate;
-		Date modifiedTime;
+		String modifiedDateTime;		
 		int modifiedByUserID;
 		String modifiedByUserEmployeeID;
 		String modifiedByUserFirstName;
@@ -131,8 +130,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null)
 								{
 									statusValue="DeActive";
 								}				
-								modifiedDate = departmentBeanOB3.get(i).getCreationDate();
-								modifiedTime = departmentBeanOB3.get(i).getCreationTime();
+								modifiedDateTime = departmentBeanOB3.get(i).getCreationDateTime();								
 								modifiedByUserID = departmentBeanOB3.get(i).getCreatedByUserID();
 								UserBean userBeanOB1 = new UserBean();
 								userBeanOB1.setSearchQuery(" where userid='"+modifiedByUserID+"'");
@@ -162,9 +160,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null)
 										<%=modifiedByUserFirstName%>
 									</td>
 									<td>
-										<%=modifiedDate%>
-										<br>
-										<%=modifiedTime%>
+										<%=modifiedDateTime%>										
 									</td>
 									<td>
 										<input type="hidden" name="sourceJSP" value="departmentLog.jsp"></input>
@@ -226,8 +222,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null)
 								{
 									statusValue="DeActive";
 								}
-								modifiedDate = departmentBeanOB3.get(i).getCreationDate();
-								modifiedTime = departmentBeanOB3.get(i).getCreationTime();
+								modifiedDateTime = departmentBeanOB3.get(i).getCreationDateTime();								
 								modifiedByUserID = departmentBeanOB3.get(i).getCreatedByUserID();
 								UserBean userBeanOB1 = new UserBean();
 								userBeanOB1.setSearchQuery(" where userid='"+modifiedByUserID+"'");
@@ -249,9 +244,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null)
 										<%=modifiedByUserFirstName%>
 									</td>
 									<td>
-										<%=modifiedDate%>
-										<br>
-										<%=modifiedTime%>
+										<%=modifiedDateTime%>
 									</td>
 									<td><%=description%></td>
 								</tr>

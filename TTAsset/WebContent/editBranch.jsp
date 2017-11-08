@@ -35,8 +35,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 		String country;
 		int status;
 		String statusValue="null";
-		Date creationDate;
-		Date creationTime;
+		String creationDateTime;		
 		int createdByUserID;
 		String createdByUserEmployeeID;
 		String createdByUserFirstName;
@@ -168,8 +167,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 							{
 								statusValue="DeActive";
 							}				
-							creationDate = branchBeanOB3.get(i).getCreationDate();
-							creationTime = branchBeanOB3.get(i).getCreationTime();
+							creationDateTime = branchBeanOB3.get(i).getCreationDateTime();							
 							createdByUserID = branchBeanOB3.get(i).getCreatedByUserID();							
 							UserBean userBeanOB1 = new UserBean();
 							userBeanOB1.setSearchQuery(" where userid='"+createdByUserID+"'");
@@ -227,9 +225,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 									<%=createdByUserFirstName%>
 								</td>
 								<td>
-									<%=creationDate%>
-									<br>
-									<%=creationTime%>
+									<%=creationDateTime%>									
 								</td>
 								<td>
 									<input type="hidden" name="sourceJSP" value="editBranch.jsp"></input>
@@ -290,8 +286,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 			{
 				statusValue="DeActive";
 			}
-			creationDate = branchBeanOB3.get(0).getCreationDate();
-			creationTime = branchBeanOB3.get(0).getCreationTime();
+			creationDateTime = branchBeanOB3.get(0).getCreationDateTime();			
 			branchBeanOB1 = null;
 			branchBeanOB2 = null;
 			branchBeanOB3 = null;
@@ -355,9 +350,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 								<%=createdByUserFirstName%>
 							</td>
 							<td>
-								<%=creationDate%>
-								<br>
-								<%=creationTime%>
+								<%=creationDateTime%>								
 							</td>
 						</tr>
 					</tbody>

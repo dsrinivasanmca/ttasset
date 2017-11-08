@@ -127,6 +127,7 @@ public class UserServlet extends HttpServlet {
 									try 
 									{
 										joiningDate = dateFormat.parse(joiningDateString);
+										joiningDateString = new SimpleDateFormat("dd-MM-yyyy").format(joiningDate);
 									} 
 									catch (ParseException e) 
 									{						
@@ -150,7 +151,7 @@ public class UserServlet extends HttpServlet {
 									userBeanOB1.setUserLastName(userLastName);
 									userBeanOB1.setUserMobileNo(mobileNo);
 									userBeanOB1.setUserEmailID(emailID);
-									userBeanOB1.setUserJoiningDate(joiningDate);
+									userBeanOB1.setUserJoiningDate(joiningDateString);
 									userBeanOB1.setUserRole(roleName);
 									userBeanOB1.setUserDepartmentID(departmentID);
 									userBeanOB1.setUserDesignationID(designationID);
@@ -387,8 +388,10 @@ public class UserServlet extends HttpServlet {
 												Date oldJoiningDate = null;															
 												try 
 												{
-													newJoiningDate = dateFormat.parse(newJoiningDateString);									
-													oldJoiningDate = dateFormat.parse(oldJoiningDateString);									
+													newJoiningDate = dateFormat.parse(newJoiningDateString);
+													newJoiningDateString = new SimpleDateFormat("dd-MM-yyyy").format(newJoiningDate);
+													oldJoiningDate = dateFormat.parse(oldJoiningDateString);
+													oldJoiningDateString = new SimpleDateFormat("dd-MM-yyyy").format(oldJoiningDate);
 												} 
 												catch (ParseException e) 
 												{						
@@ -437,8 +440,8 @@ public class UserServlet extends HttpServlet {
 													userBeanOB1.setOldUserMobileNo(oldMobileNo);
 													userBeanOB1.setUserEmailID(newEmailID);
 													userBeanOB1.setOldUserEmailID(oldEmailID);
-													userBeanOB1.setUserJoiningDate(newJoiningDate);
-													userBeanOB1.setOldUserJoiningDate(oldJoiningDate);
+													userBeanOB1.setUserJoiningDate(newJoiningDateString);
+													userBeanOB1.setOldUserJoiningDate(oldJoiningDateString);
 													userBeanOB1.setUserRole(newRoleName);
 													userBeanOB1.setOldUserRole(oldRoleName);
 													userBeanOB1.setUserStatus(newStatus);

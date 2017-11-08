@@ -1,6 +1,5 @@
 package com.tt.asset;
 
-import java.util.Date;
 
 public class UserBean 
 {
@@ -28,8 +27,8 @@ public class UserBean
 	private String oldUserMobileNo;
 	private String userEmailID;
 	private String oldUserEmailID;
-	private Date userJoiningDate;
-	private Date oldUserJoiningDate;
+	private String userJoiningDate;
+	private String oldUserJoiningDate;
 	private String userRole;
 	private String oldUserRole;
 	private int userStatus;
@@ -37,8 +36,7 @@ public class UserBean
 	private String userGender;
 	private String oldUserGender;
 	private int createdByUserID;	
-	private Date creationDate;
-	private Date creationTime;
+	private String creationDateTime;
 	private String description;
 	private String actionResult;
 	private String actionReport;
@@ -228,19 +226,19 @@ public class UserBean
 	{
 		return oldUserEmailID;
 	}
-	public void setUserJoiningDate(Date newUserJoiningDate)
+	public void setUserJoiningDate(String newUserJoiningDate)
 	{
 		userJoiningDate = newUserJoiningDate;
 	}
-	public Date getUserJoiningDate()
+	public String getUserJoiningDate()
 	{
 		return userJoiningDate;
 	}
-	public void setOldUserJoiningDate(Date newOldUserJoiningDate)
+	public void setOldUserJoiningDate(String newOldUserJoiningDate)
 	{
 		oldUserJoiningDate = newOldUserJoiningDate;
 	}
-	public Date getOldUserJoiningDate()
+	public String getOldUserJoiningDate()
 	{
 		return oldUserJoiningDate;
 	}
@@ -300,21 +298,13 @@ public class UserBean
 	{
 		return createdByUserID;
 	}
-	public void setCreationDate(Date newCreationDate)
+	public void setCreationDateTime(String newCreationDateTime)
 	{
-		creationDate = newCreationDate;		
-	}
-	public void setCreationTime(Date newCreationTime)
+		creationDateTime = newCreationDateTime;		
+	}	
+	public String getCreationDateTime()
 	{
-		creationTime = newCreationTime;		
-	}
-	public Date getCreationDate()
-	{
-		return creationDate;
-	}
-	public Date getCreationTime()
-	{
-		return creationTime;
+		return creationDateTime;
 	}
 	public void setDescription(String newDescription)
 	{

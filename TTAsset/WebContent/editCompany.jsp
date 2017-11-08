@@ -27,11 +27,10 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 	{
 		int companyID;
 		String companyName;
-		Date openingDate;
+		String openingDate;
 		int status;
 		String statusValue="null";
-		Date creationDate;
-		Date creationTime;
+		String creationDateTime;		
 		int createdByUserID;
 		String createdByUserEmployeeID;
 		String createdByUserFirstName;
@@ -112,8 +111,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 							{
 								statusValue="DeActive";
 							}				
-							creationDate = companyBeanOB3.get(i).getCreationDate();
-							creationTime = companyBeanOB3.get(i).getCreationTime();
+							creationDateTime = companyBeanOB3.get(i).getCreationDateTime();							
 							createdByUserID = companyBeanOB3.get(i).getCreatedByUserID();
 							UserBean userBeanOB1 = new UserBean();
 							userBeanOB1.setSearchQuery(" where userid='"+createdByUserID+"'");
@@ -139,9 +137,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 									<%=cfl.capitalizeName(createdByUserFirstName)%>
 								</td>
 								<td>
-									<%=creationDate%>
-									<br>
-									<%=creationTime%>
+									<%=creationDateTime%>									
 								</td>
 								<td>
 									<input type="hidden" name="sourceJSP" value="editCompany.jsp"></input>
@@ -162,9 +158,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 			companyName =  companyBeanOB3.get(0).getCompanyName();
 			openingDate = companyBeanOB3.get(0).getOpeningDate();
 			DateBean dateBeanOB1 = new DateBean();	
-			String todayDate = dateBeanOB1.getTodayDate();
-			dateBeanOB1.setDateFormat1(openingDate);
-			String openingDate1 = dateBeanOB1.getDateFormat2();
+			String todayDate = dateBeanOB1.getTodayDate();			
 			dateBeanOB1 = null;
 			status = companyBeanOB3.get(0).getCompanyStatus();
 			if (status == 1)
@@ -175,8 +169,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 			{
 				statusValue="DeActive";
 			}
-			creationDate = companyBeanOB3.get(0).getCreationDate();
-			creationTime = companyBeanOB3.get(0).getCreationTime();
+			creationDateTime = companyBeanOB3.get(0).getCreationDateTime();			
 			createdByUserID = companyBeanOB3.get(0).getCreatedByUserID();
 			UserBean userBeanOB1 = new UserBean();
 			userBeanOB1.setSearchQuery(" where userid='"+createdByUserID+"'");
@@ -222,9 +215,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 								<%=createdByUserFirstName%>
 							</td>
 							<td>
-								<%=creationDate%>
-								<br>
-								<%=creationTime%>
+								<%=creationDateTime%>
 							</td>
 						</tr>
 					</tbody>
@@ -251,9 +242,9 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
     								<input type="hidden" id="endDate" value="<%=todayDate%>">  
       								<label class="control-label col-sm-4" for="joiningdate">OpeningDate</label>  
       								<div class="col-sm-8">
-      									<input type="hidden" class="form-control" name="oldOpeningDate" value="<%=openingDate1%>">        								                    		
+      									<input type="hidden" class="form-control" name="oldOpeningDate" value="<%=openingDate%>">        								                    		
                     					<div class="input-group date form_date" data-date="" data-date-format="dd-mm-yyyy" data-link-field="newOpeningDate" data-link-format="dd-mm-yyyy">                    						
-                    						<input class="form-control" type="text" name="newOpeningDate1" value="<%=openingDate1%>" placeholder="<%=openingDate1%>" readonly>                    							
+                    						<input class="form-control" type="text" name="newOpeningDate1" value="<%=openingDate%>" placeholder="<%=openingDate%>" readonly>                    							
 											<span class="input-group-addon">
 												<span class="glyphicon glyphicon-calendar"></span>
 											</span>

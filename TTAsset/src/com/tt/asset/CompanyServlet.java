@@ -54,7 +54,7 @@ public class CompanyServlet extends HttpServlet {
 					try 
 					{
 						openingDate = dateFormat.parse(openingDateString);
-						openingDateString = new SimpleDateFormat("yyyy-MM-dd").format(openingDate);
+						openingDateString = new SimpleDateFormat("dd-MM-yyyy").format(openingDate);
 					} 
 					catch (ParseException e) 
 					{						
@@ -62,7 +62,7 @@ public class CompanyServlet extends HttpServlet {
 					}																			
 					CompanyBean companyBeanOB1 = new CompanyBean();
 					companyBeanOB1.setCompanyName(companyName);
-					companyBeanOB1.setOpeningDate(openingDate);
+					companyBeanOB1.setOpeningDate(openingDateString);
 					companyBeanOB1.setCreatedByUserID(currentSessionUserID);
 					CompanyDAO companyDAOOB1 = new CompanyDAO();
 					CompanyBean companyBeanOB2 = companyDAOOB1.newCompany(companyBeanOB1);
@@ -119,8 +119,8 @@ public class CompanyServlet extends HttpServlet {
 					{
 						new1OpeningDate = dateFormat.parse(new1OpeningDateString);
 						oldOpeningDate = dateFormat.parse(oldOpeningDateString);
-						new1OpeningDateString = new SimpleDateFormat("yyyy-MM-dd").format(new1OpeningDate);
-						oldOpeningDateString = new SimpleDateFormat("yyyy-MM-dd").format(oldOpeningDate);						
+						new1OpeningDateString = new SimpleDateFormat("dd-MM-yyyy").format(new1OpeningDate);
+						oldOpeningDateString = new SimpleDateFormat("dd-MM-yyyy").format(oldOpeningDate);						
 					} 
 					catch (ParseException e) 
 					{						
@@ -141,8 +141,8 @@ public class CompanyServlet extends HttpServlet {
 						CompanyBean companyBeanOB1 = new CompanyBean();												
 						companyBeanOB1.setCompanyName(new1CompanyName);
 						companyBeanOB1.setOldCompanyName(oldCompanyName);
-						companyBeanOB1.setOpeningDate(new1OpeningDate);
-						companyBeanOB1.setOldOpeningDate(oldOpeningDate);
+						companyBeanOB1.setOpeningDate(new1OpeningDateString);
+						companyBeanOB1.setOldOpeningDate(oldOpeningDateString);
 						companyBeanOB1.setCompanyStatus(new1Status);
 						companyBeanOB1.setOldCompanyStatus(oldStatus);
 						companyBeanOB1.setCompanyID(companyID);

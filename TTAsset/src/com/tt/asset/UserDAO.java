@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
@@ -95,8 +93,7 @@ public class UserDAO
 		String userLastName = userBeanOB1.getUserLastName();
 		String mobileNo = userBeanOB1.getUserMobileNo();
 		String emailID = userBeanOB1.getUserEmailID();
-		Date joiningDate = userBeanOB1.getUserJoiningDate();
-		String joiningDateString = new SimpleDateFormat("dd-MM-yyyy").format(joiningDate);
+		String joiningDate = userBeanOB1.getUserJoiningDate();
 		String roleName = userBeanOB1.getUserRole();
 		int departmentID = userBeanOB1.getUserDepartmentID();
 		int designationID = userBeanOB1.getUserDesignationID();
@@ -314,7 +311,7 @@ public class UserDAO
 				stmt = con.createStatement();
 			
 				String insertColumns="userid,usertype,companyid,vendorcompanyid,branchid,employeeid,loginpassword,userfirstname,userlastname,mobileno,emailid,rolename,departmentid,designationid,joiningdate,gender,status,createdby,creationdatetime";
-				String insertValues="userid.nextval,'"+userType+"','"+companyID+"','"+vendorCompanyID+"','"+branchID+"','"+employeeID+"','"+loginPassword+"','"+userFirstName+"','"+userLastName+"','"+mobileNo+"','"+emailID+"','"+roleName+"','"+departmentID+"','"+designationID+"',to_date('"+joiningDateString+"','DD-MM-YYYY'),'"+gender+"','1','"+createdByUserID+"',current_timestamp";
+				String insertValues="userid.nextval,'"+userType+"','"+companyID+"','"+vendorCompanyID+"','"+branchID+"','"+employeeID+"','"+loginPassword+"','"+userFirstName+"','"+userLastName+"','"+mobileNo+"','"+emailID+"','"+roleName+"','"+departmentID+"','"+designationID+"','"+joiningDate+"','"+gender+"','1','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual)";
 				insertQuery = "insert into users("+insertColumns+") values("+insertValues+")";						
 				rs = stmt.executeQuery(insertQuery);
 				searchQuery = "select userid from users where employeeid='"+employeeID+"' and companyid='"+companyID+"'";
@@ -323,7 +320,7 @@ public class UserDAO
 				{	
 					int userID = rs.getInt("userid");
 					insertColumns="userid,usertype,vendorcompanyid,branchid,employeeid,userfirstname,userlastname,mobileno,emailid,rolename,departmentid,designationid,joiningdate,gender,status,modifiedby,modifydatetime,description";
-					insertValues="'"+userID+"','"+userType+"','"+vendorCompanyID+"','"+branchID+"','"+employeeID+"','"+userFirstName+"','"+userLastName+"','"+mobileNo+"','"+emailID+"','"+roleName+"','"+departmentID+"','"+designationID+"',to_date('"+joiningDateString+"','DD-MM-YYYY'),'"+gender+"','1','"+createdByUserID+"',current_timestamp,'newly created'";
+					insertValues="'"+userID+"','"+userType+"','"+vendorCompanyID+"','"+branchID+"','"+employeeID+"','"+userFirstName+"','"+userLastName+"','"+mobileNo+"','"+emailID+"','"+roleName+"','"+departmentID+"','"+designationID+"','"+joiningDate+"','"+gender+"','1','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual),'newly created'";
 					insertQuery = "insert into userlog("+insertColumns+") values("+insertValues+")";
 					stmt.executeQuery(insertQuery);
 					actionResult = "Success";
@@ -385,12 +382,11 @@ public class UserDAO
 				userBeanOB2.setUserLastName(rs.getString("userlastname"));
 				userBeanOB2.setUserEmailID(rs.getString("emailid"));
 				userBeanOB2.setUserMobileNo(rs.getString("mobileno"));
-				userBeanOB2.setUserJoiningDate(rs.getDate("joiningdate"));
+				userBeanOB2.setUserJoiningDate(rs.getString("joiningdate"));
 				userBeanOB2.setUserStatus(rs.getInt("status"));
 				userBeanOB2.setUserGender(rs.getString("gender"));				
 				userBeanOB2.setCreatedByUserID(rs.getInt("createdby"));
-				userBeanOB2.setCreationDate(rs.getDate("creationdatetime"));
-				userBeanOB2.setCreationTime(rs.getTime("creationdatetime"));
+				userBeanOB2.setCreationDateTime(rs.getString("creationdatetime"));				
 				userBeanOB1.add(userBeanOB2);
 			}
 		}		
@@ -431,10 +427,8 @@ public class UserDAO
 		String oldMobileNo = userBeanOB1.getOldUserMobileNo();
 		String newEmailID = userBeanOB1.getUserEmailID();
 		String oldEmailID = userBeanOB1.getOldUserEmailID();
-		Date newJoiningDate = userBeanOB1.getUserJoiningDate();
-		Date oldJoiningDate = userBeanOB1.getOldUserJoiningDate();			
-		String newJoiningDateString = new SimpleDateFormat("dd-MM-yyyy").format(newJoiningDate);		
-		String oldJoiningDateString = new SimpleDateFormat("dd-MM-yyyy").format(oldJoiningDate);		
+		String newJoiningDate = userBeanOB1.getUserJoiningDate();
+		String oldJoiningDate = userBeanOB1.getOldUserJoiningDate();
 		String newRole = userBeanOB1.getUserRole();		
 		String oldRole = userBeanOB1.getOldUserRole();		
 		int newStatus = userBeanOB1.getUserStatus();
@@ -828,16 +822,16 @@ public class UserDAO
 					description = description.concat(",EmailID");
 				}
 			}
-			if(!oldJoiningDateString.equals(newJoiningDateString))
+			if(!oldJoiningDate.equals(newJoiningDate))
 			{
 				
 				if("".equals(updateQuery))
 				{
-					updateQuery = "joiningdate=to_date('"+newJoiningDateString+"','DD-MM-YYYY')";					
+					updateQuery = "joiningdate='"+newJoiningDate+"'";					
 				}
 				else
 				{
-					updateQuery = updateQuery.concat(",joiningdate=to_date('"+newJoiningDateString+"','DD-MM-YYYY')");
+					updateQuery = updateQuery.concat(",joiningdate='"+newJoiningDate+"'");
 				}	
 				if("".equals(description))
 				{
@@ -955,7 +949,8 @@ public class UserDAO
 				stmt = con.createStatement();
 				String updateQuery1="update users set "+updateQuery+ " where userid='"+userID+"'";			
 				stmt.executeQuery(updateQuery1);
-				String searchQuery = "select employeeid from users where userid='"+userID+"' and usertype='"+newUserType+"' and vendorcompanyid='"+newVendorCompanyID+"' and branchid='"+newBranchID+"' and employeeid='"+newEmployeeID+"' and userfirstname='"+newFirstName+"' and userlastname='"+newLastName+"' and mobileno='"+newMobileNo+"' and emailid='"+newEmailID+"' and joiningdate<='"+newJoiningDateString+"' and rolename='"+newRole+"' and departmentid='"+newDepartmentID+"' and designationid='"+newDesignationID+"' and gender='"+newGender+"' and status='"+newStatus+"'";																	
+				//String searchQuery = "select employeeid from users where userid='"+userID+"' and usertype='"+newUserType+"' and vendorcompanyid='"+newVendorCompanyID+"' and branchid='"+newBranchID+"' and employeeid='"+newEmployeeID+"' and userfirstname='"+newFirstName+"' and userlastname='"+newLastName+"' and mobileno='"+newMobileNo+"' and emailid='"+newEmailID+"' and joiningdate<='"+newJoiningDateString+"' and rolename='"+newRole+"' and departmentid='"+newDepartmentID+"' and designationid='"+newDesignationID+"' and gender='"+newGender+"' and status='"+newStatus+"'";																	
+				String searchQuery = "select employeeid from users where userid='"+userID+"' and usertype='"+newUserType+"' and vendorcompanyid='"+newVendorCompanyID+"' and branchid='"+newBranchID+"' and employeeid='"+newEmployeeID+"' and userfirstname='"+newFirstName+"' and userlastname='"+newLastName+"' and mobileno='"+newMobileNo+"' and emailid='"+newEmailID+"' and joiningdate = '"+newJoiningDate+"' and rolename='"+newRole+"' and departmentid='"+newDepartmentID+"' and designationid='"+newDesignationID+"' and gender='"+newGender+"' and status='"+newStatus+"'";
 				System.out.println(searchQuery);
 				userBeanOB1.setSearchQuery(searchQuery);											
 				rs = stmt.executeQuery(searchQuery);															
@@ -970,7 +965,7 @@ public class UserDAO
 				{				
 					newEmployeeID = rs.getString("employeeid");					
 					String insertColumns="userid,usertype,vendorcompanyid,branchid,employeeid,userfirstname,userlastname,mobileno,emailid,rolename,departmentid,designationid,joiningdate,gender,status,modifiedby,modifydatetime,description";
-					String insertValues="'"+userID+"','"+newUserType+"','"+newVendorCompanyID+"','"+newBranchID+"','"+newEmployeeID+"','"+newFirstName+"','"+newLastName+"','"+newMobileNo+"','"+newEmailID+"','"+newRole+"','"+newDepartmentID+"','"+newDesignationID+"',to_date('"+newJoiningDateString+"','DD-MM-YYYY'),'"+newGender+"','"+newStatus+"','"+createdByUserID+"',current_timestamp,'"+description+"'";
+					String insertValues="'"+userID+"','"+newUserType+"','"+newVendorCompanyID+"','"+newBranchID+"','"+newEmployeeID+"','"+newFirstName+"','"+newLastName+"','"+newMobileNo+"','"+newEmailID+"','"+newRole+"','"+newDepartmentID+"','"+newDesignationID+"','"+newJoiningDate+"','"+newGender+"','"+newStatus+"','"+createdByUserID+"',current_timestamp,'"+description+"'";
 					String insertQuery = "insert into userlog("+insertColumns+") values("+insertValues+")";
 					stmt.executeQuery(insertQuery);
 					actionResult = "Success";
@@ -1022,12 +1017,11 @@ public class UserDAO
 				userBeanOB2.setUserLastName(rs.getString("userlastname"));
 				userBeanOB2.setUserEmailID(rs.getString("emailid"));
 				userBeanOB2.setUserMobileNo(rs.getString("mobileno"));
-				userBeanOB2.setUserJoiningDate(rs.getDate("joiningdate"));
+				userBeanOB2.setUserJoiningDate(rs.getString("joiningdate"));
 				userBeanOB2.setUserStatus(rs.getInt("status"));
 				userBeanOB2.setUserGender(rs.getString("gender"));				
 				userBeanOB2.setCreatedByUserID(rs.getInt("modifiedby"));
-				userBeanOB2.setCreationDate(rs.getDate("modifydatetime"));
-				userBeanOB2.setCreationTime(rs.getTime("modifydatetime"));
+				userBeanOB2.setCreationDateTime(rs.getString("modifydatetime"));				
 				userBeanOB2.setDescription(rs.getString("description"));
 				userBeanOB1.add(userBeanOB2);
 			}

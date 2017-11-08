@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
@@ -21,7 +18,7 @@ public class CompanyDAO
 	
 	private String companyName;
 	private int createdByUserID;
-	private Date openingDate;
+	private String openingDate;
 	private int companyID;
 	private String actionResult;
 	private String actionReport;
@@ -30,9 +27,7 @@ public class CompanyDAO
 	{
 		companyName = companyBeanOB1.getCompanyName();
 		createdByUserID = companyBeanOB1.getCreatedByUserID();
-		openingDate = companyBeanOB1.getOpeningDate();
-		DateFormat dateFormate = new SimpleDateFormat("yyyy-MM-dd");
-		String openingDateString =dateFormate.format(openingDate);		 
+		openingDate = companyBeanOB1.getOpeningDate();		 
 		
 		// Verifying Duplicate Company Name		
 		CommonSearchBean commonSearchBeanOB1 = new CommonSearchBean();
@@ -52,7 +47,7 @@ public class CompanyDAO
 			{
 				con = ConnectionManager.getConnection();
 				stmt = con.createStatement();
-				String insertQuery = "insert into companies(companyid,companyname,openingdate,status,createdby,creationdatetime) values(companyid.nextval,'"+companyName+"',to_date('"+openingDateString+"','YYYY-MM-DD'),'1','"+createdByUserID+"',current_timestamp)";				
+				String insertQuery = "insert into companies(companyid,companyname,openingdate,status,createdby,creationdatetime) values(companyid.nextval,'"+companyName+"','"+openingDate+"','1','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual))";				
 				rs = stmt.executeQuery(insertQuery);
 				rs.close();
 				
@@ -67,7 +62,7 @@ public class CompanyDAO
 					actionReport = "Company "+companyName.toUpperCase()+" Created Successfully.";
 					System.out.println(actionReport);
 					int newCompanyid = rs.getInt("companyid");					
-					insertQuery="insert into companylog(companyid,companyname,openingdate,status,modifiedby,modifydatetime,description) values('"+newCompanyid+"','"+companyName+"',to_date('"+openingDateString+"','YYYY-MM-DD'),'1','"+createdByUserID+"',current_timestamp,'Newly Added')";
+					insertQuery="insert into companylog(companyid,companyname,openingdate,status,modifiedby,modifydatetime,description) values('"+newCompanyid+"','"+companyName+"','"+openingDate+"','1','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual),'Newly Added')";
 					stmt.executeQuery(insertQuery);						
 				}
 				else
@@ -113,11 +108,10 @@ public class CompanyDAO
 				CompanyBean companyBeanOB2 = new CompanyBean();
 				companyBeanOB2.setCompanyID(rs.getInt("companyid"));
 				companyBeanOB2.setCompanyName(rs.getString("companyname"));
-				companyBeanOB2.setOpeningDate(rs.getDate("openingdate"));
+				companyBeanOB2.setOpeningDate(rs.getString("openingdate"));
 				companyBeanOB2.setCompanyStatus(rs.getInt("status"));
 				companyBeanOB2.setCreatedByUserID(rs.getInt("createdby"));
-				companyBeanOB2.setCreationDate(rs.getDate("creationdatetime"));
-				companyBeanOB2.setCreationTime(rs.getTime("creationdatetime"));
+				companyBeanOB2.setCreationDateTime(rs.getString("creationdatetime"));				
 				companyBeanOB1.add(companyBeanOB2);
 			}
 		}		
@@ -137,14 +131,12 @@ public class CompanyDAO
 	{
 		companyID = companyBeanOB1.getCompanyID();
 		companyName = companyBeanOB1.getCompanyName();		
-		Date openingDate = companyBeanOB1.getOpeningDate();
-		String openingDateString = new SimpleDateFormat("yyyy-MM-dd").format(openingDate);
+		openingDate = companyBeanOB1.getOpeningDate();		
 		int companyStatus = companyBeanOB1.getCompanyStatus();
 		createdByUserID = companyBeanOB1.getCreatedByUserID();
 		
 		String oldCompanyName = companyBeanOB1.getOldCompanyName();
-		Date oldOpeningDate = companyBeanOB1.getOldOpeningDate();
-		String oldOpeningDateString = new SimpleDateFormat("yyyy-MM-dd").format(oldOpeningDate);
+		String oldOpeningDate = companyBeanOB1.getOldOpeningDate();		
 		int oldCompanyStatus = companyBeanOB1.getOldCompanyStatus();
 		String companyNameReport=null;
 		String openingDateReport=null;
@@ -186,11 +178,11 @@ public class CompanyDAO
 		{
 			companyNameReport="Success";
 		}
-		if(!openingDateString.equals(oldOpeningDateString) && "Success".equals(companyNameReport))
+		if(!openingDate.equals(oldOpeningDate) && "Success".equals(companyNameReport))
 		{
 			// Verifying Existing Users JoiningDate		
 			CommonSearchBean commonSearchBeanOB1 = new CommonSearchBean();
-			searchQuery = "select userid from users where companyid='"+companyID+"' and trunc(joiningdate) < to_date('"+openingDateString+"','YYYY-MM-DD')";
+			searchQuery = "select userid from users where companyid='"+companyID+"' and joiningdate='"+openingDate+"'";
 			commonSearchBeanOB1.setSearchQuery(searchQuery);
 			CommonSearchDAO commonSearchDAOOB1 = new CommonSearchDAO();
 			CommonSearchBean commonSearchBeanOB2 = commonSearchDAOOB1.findData(commonSearchBeanOB1);
@@ -204,11 +196,11 @@ public class CompanyDAO
 				openingDateReport="Success";
 				if("".equals(updateQuery))
 				{				
-					updateQuery = "openingdate=to_date('"+openingDateString+"','YYYY-MM-DD')";
+					updateQuery = "openingdate='"+openingDate+"'";
 				}
 				else
 				{
-					updateQuery = updateQuery.concat(",openingdate=to_date('"+openingDateString+"','YYYY-MM-DD')");
+					updateQuery = updateQuery.concat(",openingdate='"+openingDate+"'");
 				}
 				if("".equals(description))
 				{
@@ -223,7 +215,7 @@ public class CompanyDAO
 			{
 				openingDateReport="Error";
 				actionResult = "Error"; 
-				actionReport = "One or More User's Joiningdates Are Lesser than the New Opening Date "+openingDateString;
+				actionReport = "One or More User's Joiningdates Are Lesser than the New Opening Date "+openingDate;
 			}			
 		}
 		else
@@ -341,7 +333,7 @@ public class CompanyDAO
 				description = description.concat(" Modified");												
 				updateQuery1="update companies set "+updateQuery+ " where companyid='"+companyID+"'";				
 				stmt.executeQuery(updateQuery1);
-				searchQuery = "select companyname,openingdate,status from companies where companyid='"+companyID+"' and companyname='"+companyName+"' and trunc(openingdate)=to_date('"+openingDateString+"','YYYY-MM-DD') and status='"+companyStatus+"'";				
+				searchQuery = "select companyname,openingdate,status from companies where companyid='"+companyID+"' and companyname='"+companyName+"' and openingdate='"+openingDate+"' and status='"+companyStatus+"'";				
 				rs = stmt.executeQuery(searchQuery);
 				if(!rs.next())
 				{
@@ -353,7 +345,7 @@ public class CompanyDAO
 				{
 					rs.close();
 					System.out.println("Company "+companyName+" Modified Successfully");
-					String insertQuery="insert into companylog(companyid,companyname,openingdate,status,modifiedby,modifydatetime,description) values('"+companyID+"','"+companyName+"',to_date('"+openingDateString+"','YYYY-MM-DD'),'"+companyStatus+"','"+createdByUserID+"',current_timestamp,'"+description+"')";					
+					String insertQuery="insert into companylog(companyid,companyname,openingdate,status,modifiedby,modifydatetime,description) values('"+companyID+"','"+companyName+"','"+openingDate+"','"+companyStatus+"','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual),'"+description+"')";					
 					stmt.executeQuery(insertQuery);
 					actionResult = "Success";
 					actionReport = "Company "+companyName+" Updated Successfully";
@@ -391,11 +383,10 @@ public class CompanyDAO
 			{
 				CompanyBean companyBeanOB2 = new CompanyBean();								
 				companyBeanOB2.setCompanyName(rs.getString("companyname"));
-				companyBeanOB2.setOpeningDate(rs.getDate("openingdate"));
+				companyBeanOB2.setOpeningDate(rs.getString("openingdate"));
 				companyBeanOB2.setCompanyStatus(rs.getInt("status"));
 				companyBeanOB2.setCreatedByUserID(rs.getInt("modifiedby"));
-				companyBeanOB2.setCreationDate(rs.getDate("modifydatetime"));
-				companyBeanOB2.setCreationTime(rs.getTime("modifydatetime"));
+				companyBeanOB2.setCreationDateTime(rs.getString("modifydatetime"));				
 				companyBeanOB2.setDescription(rs.getString("description"));
 				companyBeanOB1.add(companyBeanOB2);
 			}			

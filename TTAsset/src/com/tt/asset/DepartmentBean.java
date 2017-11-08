@@ -1,6 +1,5 @@
 package com.tt.asset;
 
-import java.util.Date;
 
 public class DepartmentBean 
 {	
@@ -9,8 +8,7 @@ public class DepartmentBean
 	private String departmentName;
 	private String oldDepartmentName;
 	private int createdByUserID;	
-	private Date creationDate;
-	private Date creationTime;
+	private String creationDateTime;	
 	private int departmentStatus;
 	private int oldDepartmentStatus;
 	private String description;
@@ -57,21 +55,13 @@ public class DepartmentBean
 	{
 		return createdByUserID;
 	}
-	public void setCreationDate(Date newCreationDate)
+	public void setCreationDateTime(String newCreationDateTime)
 	{
-		creationDate = newCreationDate;		
-	}
-	public void setCreationTime(Date newCreationTime)
+		creationDateTime= newCreationDateTime;		
+	}	
+	public String getCreationDateTime()
 	{
-		creationTime = newCreationTime;		
-	}
-	public Date getCreationDate()
-	{
-		return creationDate;
-	}
-	public Date getCreationTime()
-	{
-		return creationTime;
+		return creationDateTime;
 	}
 	public void setDepartmentStatus(int newDepartmentStatus)
 	{

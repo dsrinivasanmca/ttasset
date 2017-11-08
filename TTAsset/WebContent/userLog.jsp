@@ -38,7 +38,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 		String userLastName;
 		String mobileNo;
 		String emailID;
-		Date joiningDate;
+		String joiningDate;
 		String roleName;
 		int departmentID;
 		String departmentName;
@@ -48,8 +48,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 		String genderValue="null";
 		int status;
 		String statusValue="null";
-		Date creationDate;
-		Date creationTime;
+		String creationDateTime;		
 		int createdByUserID;
 		String createdByUserEmployeeID;
 		String createdByUserFirstName;
@@ -568,8 +567,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 								{
 									statusValue="DeActive";
 								}				
-								creationDate = userBeanOB3.get(i).getCreationDate();
-								creationTime = userBeanOB3.get(i).getCreationTime();
+								creationDateTime = userBeanOB3.get(i).getCreationDateTime();								
 								createdByUserID = userBeanOB3.get(i).getCreatedByUserID();						
 								UserBean userBeanOB4 = new UserBean();
 								userBeanOB4.setSearchQuery(" where userid='"+createdByUserID+"'");
@@ -620,9 +618,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 										<%=createdByUserFirstName%>
 									</td>
 									<td>
-										<%=creationDate%>
-										<br>
-										<%=creationTime%>
+										<%=creationDateTime%>										
 									</td>
 									<td>
 										<input type="hidden" name="sourceJSP" value="userLog.jsp"></input>
@@ -846,8 +842,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 							{
 								statusValue="DeActive";
 							}				
-							creationDate = userBeanOB3.get(j).getCreationDate();
-							creationTime = userBeanOB3.get(j).getCreationTime();
+							creationDateTime = userBeanOB3.get(j).getCreationDateTime();							
 							createdByUserID = userBeanOB3.get(j).getCreatedByUserID();						
 							UserBean userBeanOB4 = new UserBean();
 							userBeanOB4.setSearchQuery(" where userid='"+createdByUserID+"'");
@@ -898,9 +893,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 								<%=createdByUserFirstName%>
 							</td>
 							<td>
-								<%=creationDate%>
-								<br>
-								<%=creationTime%>
+								<%=creationDateTime%>								
 							</td>
 							<td><%=description%></td>
 						</tr>

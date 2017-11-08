@@ -26,8 +26,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 		String departmentName = null;
 		int status = 0;
 		String statusValue="null";
-		Date creationDate;
-		Date creationTime;
+		String creationDateTime;		
 		int createdByUserID;
 		String createdByUserEmployeeID;
 		String createdByUserFirstName;
@@ -130,8 +129,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 							{
 								statusValue="DeActive";
 							}				
-							creationDate = departmentBeanOB3.get(i).getCreationDate();
-							creationTime = departmentBeanOB3.get(i).getCreationTime();
+							creationDateTime = departmentBeanOB3.get(i).getCreationDateTime();							
 							createdByUserID = departmentBeanOB3.get(i).getCreatedByUserID();
 							UserBean userBeanOB1 = new UserBean();
 							userBeanOB1.setSearchQuery(" where userid='"+createdByUserID+"'");
@@ -161,9 +159,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 									<%=createdByUserFirstName%>
 								</td>
 								<td>
-									<%=creationDate%>
-									<br>
-									<%=creationTime%>
+									<%=creationDateTime%>									
 								</td>
 								<td>
 									<input type="hidden" name="sourceJSP" value="editDepartment.jsp"></input>
@@ -238,8 +234,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 							{
 								statusValue="DeActive";
 							}				
-							creationDate = departmentBeanOB3.get(i).getCreationDate();
-							creationTime = departmentBeanOB3.get(i).getCreationTime();
+							creationDateTime = departmentBeanOB3.get(i).getCreationDateTime();							
 							createdByUserID = departmentBeanOB3.get(i).getCreatedByUserID();
 							UserBean userBeanOB1 = new UserBean();
 							userBeanOB1.setSearchQuery(" where userid='"+createdByUserID+"'");
@@ -268,9 +263,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 									<%=createdByUserFirstName%>
 								</td>
 								<td>
-									<%=creationDate%>
-									<br>
-									<%=creationTime%>
+									<%=creationDateTime%>									
 								</td>								
 							</tr>
 						<%

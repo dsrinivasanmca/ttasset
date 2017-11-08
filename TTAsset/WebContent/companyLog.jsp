@@ -23,11 +23,10 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 	int selectedCompanyID = (Integer) session.getAttribute("selectedCompanyID");	
 	int companyID;
 	String companyName;
-	Date openingDate;
+	String openingDate;
 	int status;
 	String statusValue="null";
-	Date creationDate;
-	Date creationTime;
+	String creationDateTime;	
 	int createdByUserID;
 	String createdByUserEmployeeID;
 	String createdByUserFirstName;
@@ -109,8 +108,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 						{
 							statusValue="DeActive";
 						}				
-						creationDate = companyBeanOB3.get(i).getCreationDate();
-						creationTime = companyBeanOB3.get(i).getCreationTime();
+						creationDateTime = companyBeanOB3.get(i).getCreationDateTime();						
 						createdByUserID = companyBeanOB3.get(i).getCreatedByUserID();
 						UserBean userBeanOB1 = new UserBean();
 						userBeanOB1.setSearchQuery(" where userid='"+createdByUserID+"'");
@@ -136,9 +134,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 								<%=cfl.capitalizeName(createdByUserFirstName)%>
 							</td>
 							<td>
-								<%=creationDate%>
-								<br>
-								<%=creationTime%>
+								<%=creationDateTime%>								
 							</td>
 							<td>
 								<input type="hidden" name="sourceJSP" value="companyLog.jsp"></input>
@@ -207,8 +203,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 						{
 							statusValue="DeActive";
 						}				
-						creationDate = companyBeanOB3.get(i).getCreationDate();
-						creationTime = companyBeanOB3.get(i).getCreationTime();
+						creationDateTime = companyBeanOB3.get(i).getCreationDateTime();						
 						createdByUserID = companyBeanOB3.get(i).getCreatedByUserID();
 						UserBean userBeanOB1 = new UserBean();
 						userBeanOB1.setSearchQuery(" where userid='"+createdByUserID+"'");
@@ -235,9 +230,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 								<%=createdByUserFirstName%>
 							</td>
 							<td>
-								<%=creationDate%>
-								<br>
-								<%=creationTime%>
+								<%=creationDateTime%>								
 							</td>
 							<td>
 								<%=description%>
