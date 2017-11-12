@@ -62,7 +62,7 @@ public class VendorCompanyDAO
 			{
 				con = ConnectionManager.getConnection();
 				stmt = con.createStatement();
-				insertQuery = "insert into vendorCompanies(vendorCompanyid,vendorCompanyname,companyid,address1,address2,address3,address4,postalcode,city,state,country,status,createdby,creationdatetime) values(vendorCompanyid.nextval,'"+vendorCompanyName+"','"+companyID+"','"+address1+"','"+address2+"','"+address3+"','"+address4+"','"+postalCode+"','"+city+"','"+state+"','"+country+"','1','"+createdByUserID+"',current_timestamp)";
+				insertQuery = "insert into vendorCompanies(vendorCompanyid,vendorCompanyname,companyid,address1,address2,address3,address4,postalcode,city,state,country,status,createdby,creationdatetime) values(vendorCompanyid.nextval,'"+vendorCompanyName+"','"+companyID+"','"+address1+"','"+address2+"','"+address3+"','"+address4+"','"+postalCode+"','"+city+"','"+state+"','"+country+"','1','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual))";
 				rs = stmt.executeQuery(insertQuery);
 				rs.close();
 				
@@ -74,7 +74,7 @@ public class VendorCompanyDAO
 				if(rs.next())
 				{	
 					int vendorCompanyid = rs.getInt("vendorCompanyid"); 
-					insertQuery = "insert into vendorCompanylog(vendorCompanyid,vendorCompanyname,address1,address2,address3,address4,postalcode,city,state,country,status,modifiedby,modifydatetime,description) values('"+vendorCompanyid+"','"+vendorCompanyName+"','"+address1+"','"+address2+"','"+address3+"','"+address4+"','"+postalCode+"','"+city+"','"+state+"','"+country+"','1','"+createdByUserID+"',current_timestamp,'newly created')";
+					insertQuery = "insert into vendorCompanylog(vendorCompanyid,vendorCompanyname,address1,address2,address3,address4,postalcode,city,state,country,status,modifiedby,modifydatetime,description) values('"+vendorCompanyid+"','"+vendorCompanyName+"','"+address1+"','"+address2+"','"+address3+"','"+address4+"','"+postalCode+"','"+city+"','"+state+"','"+country+"','1','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual),'newly created')";
 					stmt.executeQuery(insertQuery);
 					actionResult = "Success";
 					actionReport = "VendorCompany "+vendorCompanyName.toUpperCase()+" Created Successfully";
@@ -138,8 +138,7 @@ public class VendorCompanyDAO
 				vendorCompanyBeanOB2.setCountry(rs.getString("country"));
 				vendorCompanyBeanOB2.setVendorCompanyStatus(rs.getInt("status"));
 				vendorCompanyBeanOB2.setCreatedByUserID(rs.getInt("createdby"));
-				vendorCompanyBeanOB2.setCreationDate(rs.getDate("creationdatetime"));
-				vendorCompanyBeanOB2.setCreationTime(rs.getTime("creationdatetime"));
+				vendorCompanyBeanOB2.setCreationDateTime(rs.getString("creationdatetime"));
 				vendorCompanyBeanOB1.add(vendorCompanyBeanOB2);
 			}			
 		}		
@@ -456,7 +455,7 @@ public class VendorCompanyDAO
 				else
 				{
 					rs.close();
-					insertQuery = "insert into vendorCompanylog(vendorCompanyid,vendorCompanyname,address1,address2,address3,address4,postalcode,city,state,country,status,modifiedby,modifydatetime,description) values('"+vendorCompanyID+"','"+newVendorCompanyName+"','"+newAddress1+"','"+newAddress2+"','"+newAddress3+"','"+newAddress4+"','"+newPostalCode+"','"+newCity+"','"+newState+"','"+newCountry+"','"+newStatus+"','"+createdByUserID+"',current_timestamp,'"+description+"')";				
+					insertQuery = "insert into vendorCompanylog(vendorCompanyid,vendorCompanyname,address1,address2,address3,address4,postalcode,city,state,country,status,modifiedby,modifydatetime,description) values('"+vendorCompanyID+"','"+newVendorCompanyName+"','"+newAddress1+"','"+newAddress2+"','"+newAddress3+"','"+newAddress4+"','"+newPostalCode+"','"+newCity+"','"+newState+"','"+newCountry+"','"+newStatus+"','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual),'"+description+"')";				
 					stmt.executeQuery(insertQuery);
 					actionResult = "Success";
 					actionReport = "VendorCompany "+newVendorCompanyName.toUpperCase()+" Updated Successfully";
@@ -505,8 +504,7 @@ public class VendorCompanyDAO
 				vendorCompanyBeanOB2.setCountry(rs.getString("country"));
 				vendorCompanyBeanOB2.setVendorCompanyStatus(rs.getInt("status"));
 				vendorCompanyBeanOB2.setCreatedByUserID(rs.getInt("modifiedby"));
-				vendorCompanyBeanOB2.setCreationDate(rs.getDate("modifydatetime"));
-				vendorCompanyBeanOB2.setCreationTime(rs.getTime("modifydatetime"));
+				vendorCompanyBeanOB2.setCreationDateTime(rs.getString("modifydatetime"));
 				vendorCompanyBeanOB2.setDescription(rs.getString("description"));
 				vendorCompanyBeanOB1.add(vendorCompanyBeanOB2);
 			}			

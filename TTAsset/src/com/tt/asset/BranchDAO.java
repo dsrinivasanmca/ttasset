@@ -62,7 +62,7 @@ public class BranchDAO
 			{
 				con = ConnectionManager.getConnection();
 				stmt = con.createStatement();
-				insertQuery = "insert into branches(branchid,branchname,companyid,address1,address2,address3,address4,postalcode,city,state,country,status,createdby,creationdatetime) values(branchid.nextval,'"+branchName+"','"+companyID+"','"+address1+"','"+address2+"','"+address3+"','"+address4+"','"+postalCode+"','"+city+"','"+state+"','"+country+"','1','"+createdByUserID+"',current_timestamp)";
+				insertQuery = "insert into branches(branchid,branchname,companyid,address1,address2,address3,address4,postalcode,city,state,country,status,createdby,creationdatetime) values(branchid.nextval,'"+branchName+"','"+companyID+"','"+address1+"','"+address2+"','"+address3+"','"+address4+"','"+postalCode+"','"+city+"','"+state+"','"+country+"','1','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual))";
 				rs = stmt.executeQuery(insertQuery);
 				rs.close();
 				

@@ -47,14 +47,14 @@ public class DesignationDAO
 			{
 				con = ConnectionManager.getConnection();
 				stmt = con.createStatement();			
-				insertQuery = "insert into designations(designationid,designationname,companyid,status,createdby,creationdatetime) values(designationid.nextval,'"+designationName+"','"+companyID+"','1','"+createdByUserID+"',current_timestamp)";
+				insertQuery = "insert into designations(designationid,designationname,companyid,status,createdby,creationdatetime) values(designationid.nextval,'"+designationName+"','"+companyID+"','1','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual))";
 				rs = stmt.executeQuery(insertQuery);
 				searchQuery = "select designationid from designations where designationname='"+designationName+"' and companyid='"+companyID+"'";
 				rs = stmt.executeQuery(searchQuery);
 				if(rs.next())
 				{	
 					int designationid = rs.getInt("designationid"); 
-					insertQuery = "insert into designationlog(designationid,designationname,status,modifiedby,modifydatetime,description) values('"+designationid+"','"+designationName+"','1','"+createdByUserID+"',current_timestamp,'newly created')";
+					insertQuery = "insert into designationlog(designationid,designationname,status,modifiedby,modifydatetime,description) values('"+designationid+"','"+designationName+"','1','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual),'newly created')";
 					stmt.executeQuery(insertQuery);
 					actionResult = "Success";
 					actionReport = "DesignationName "+designationName.toUpperCase()+" Created Successfully";
@@ -109,8 +109,7 @@ public class DesignationDAO
 				designationBeanOB2.setDesignationName(rs.getString("designationname"));
 				designationBeanOB2.setDesignationStatus(rs.getInt("status"));
 				designationBeanOB2.setCreatedByUserID(rs.getInt("createdby"));
-				designationBeanOB2.setCreationDate(rs.getDate("creationdatetime"));
-				designationBeanOB2.setCreationTime(rs.getTime("creationdatetime"));
+				designationBeanOB2.setCreationDateTime(rs.getString("creationdatetime"));
 				designationBeanOB1.add(designationBeanOB2);
 			}			
 		}		
@@ -251,7 +250,7 @@ public class DesignationDAO
 				}
 				else
 				{
-					insertQuery = "insert into designationlog(designationid,designationname,status,modifiedby,modifydatetime,description) values('"+designationID+"','"+newDesignationName+"','"+newStatus+"','"+createdByUserID+"',current_timestamp,'"+description+"')";					
+					insertQuery = "insert into designationlog(designationid,designationname,status,modifiedby,modifydatetime,description) values('"+designationID+"','"+newDesignationName+"','"+newStatus+"','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual),'"+description+"')";					
 					stmt.executeQuery(insertQuery);
 					actionResult = "Success";
 					actionReport = "Designation "+newDesignationName.toUpperCase()+" Updated Successfully";
@@ -293,8 +292,7 @@ public class DesignationDAO
 				designationBeanOB2.setDesignationName(rs.getString("designationname"));
 				designationBeanOB2.setDesignationStatus(rs.getInt("status"));
 				designationBeanOB2.setCreatedByUserID(rs.getInt("modifiedby"));
-				designationBeanOB2.setCreationDate(rs.getDate("modifydatetime"));
-				designationBeanOB2.setCreationTime(rs.getTime("modifydatetime"));
+				designationBeanOB2.setCreationDateTime(rs.getString("modifydatetime"));
 				designationBeanOB2.setDescription(rs.getString("description"));
 				designationBeanOB1.add(designationBeanOB2);
 			}			

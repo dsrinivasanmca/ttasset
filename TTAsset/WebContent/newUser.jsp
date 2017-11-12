@@ -320,11 +320,9 @@
           	  								companyBeanOB2.add(companyBeanOB1);
           	  								companyDAOOB1 = new CompanyDAO();
           	  								companyBeanOB3 = companyDAOOB1.viewCompany(companyBeanOB2);
-          	  								Date companyOpeningDate = companyBeanOB3.get(0).getOpeningDate();          	  								
+          	  								String companyOpeningDate = companyBeanOB3.get(0).getOpeningDate();          	  								
                     						DateBean dateBeanOB1 = new DateBean();	
                     						String todayDate = dateBeanOB1.getTodayDate();
-                    						dateBeanOB1.setDateFormat1(companyOpeningDate);
-                    						String companyOpeningDateString = dateBeanOB1.getDateFormat2();
                     						dateBeanOB1 = null;
                     						companyBeanOB1 = null;
                     						companyBeanOB2 = null;
@@ -332,7 +330,7 @@
                     						companyDAOOB1 = null;
                     					%>
                     					
-    										<input type="hidden" id="startDate" value=<%=companyOpeningDateString%>>
+    										<input type="hidden" id="startDate" value=<%=companyOpeningDate%>>
     										<input type="hidden" id="endDate" value="<%=todayDate%>">      										        									        								                    
                     						<div class="input-group date form_date" data-date="" data-date-format="dd-mm-yyyy" data-link-field="joiningDate" data-link-format="dd-mm-yyyy">
                     							<input class="form-control" size="16" type="text" name="joiningDate1" value="<%=todayDate%>" placeholder="<%=todayDate%>" readonly>                    							

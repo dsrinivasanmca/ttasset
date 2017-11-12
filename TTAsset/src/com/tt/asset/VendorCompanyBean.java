@@ -25,8 +25,7 @@ public class VendorCompanyBean
 	private String country;
 	private String oldCountry;
 	private int createdByUserID;	
-	private Date creationDate;
-	private Date creationTime;
+	private String creationDateTime;
 	private int vendorCompanyStatus;
 	private int oldVendorCompanyStatus;
 	private String description;
@@ -201,21 +200,13 @@ public class VendorCompanyBean
 	{
 		return createdByUserID;
 	}
-	public void setCreationDate(Date newCreationDate)
+	public void setCreationDateTime(String newCreationDateTime)
 	{
-		creationDate = newCreationDate;		
+		creationDateTime = newCreationDateTime;		
 	}
-	public void setCreationTime(Date newCreationTime)
+	public String getCreationDateTime()
 	{
-		creationTime = newCreationTime;		
-	}
-	public Date getCreationDate()
-	{
-		return creationDate;
-	}
-	public Date getCreationTime()
-	{
-		return creationTime;
+		return creationDateTime;
 	}
 	public void setVendorCompanyStatus(int newVendorCompanyStatus)
 	{
