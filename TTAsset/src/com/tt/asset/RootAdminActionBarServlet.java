@@ -121,6 +121,8 @@ public class RootAdminActionBarServlet extends HttpServlet {
 					session.setAttribute("oldUserType","unKnown");
 					session.setAttribute("selectedCompanyID",0);
 					session.setAttribute("oldSelectedCompanyID",0);
+					session.setAttribute("selectedVendorCompanyID",0);
+					session.setAttribute("oldSelectedVendorCompanyID",0);
 					session.setAttribute("selectedBranchID",0);
 					session.setAttribute("oldSelectedBranchID",0);
 					response.sendRedirect("newUser.jsp");

@@ -39,8 +39,8 @@ public class ConnectionManager
 			  			    	     
 			  
 		        Class.forName("oracle.jdbc.driver.OracleDriver");
-		        //con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","srinivasan","password");
-		        con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.223.4:1521:oracle","srinivasan","password");
+		        con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","srinivasan","password");
+		        //con = DriverManager.getConnection("jdbc:oracle:thin:@192.168.223.4:1521:oracle","srinivasan","password");
 		  }
 		  catch(ClassNotFoundException e)
 		  {		  

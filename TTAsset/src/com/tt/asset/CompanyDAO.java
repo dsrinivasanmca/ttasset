@@ -182,8 +182,10 @@ public class CompanyDAO
 		{
 			// Verifying Existing Users JoiningDate		
 			CommonSearchBean commonSearchBeanOB1 = new CommonSearchBean();
-			searchQuery = "select userid from users where companyid='"+companyID+"' and joiningdate='"+openingDate+"'";
+			//searchQuery = "select userid from users where companyid='"+companyID+"' and joiningdate<'"+openingDate+"'";
+			searchQuery = "select userid from users where companyid='"+companyID+"' and to_date(joiningdate, 'DD-MM-YYYY')<to_date('"+openingDate+"', 'DD-MM-YYYY')";
 			commonSearchBeanOB1.setSearchQuery(searchQuery);
+			System.out.println(searchQuery);
 			CommonSearchDAO commonSearchDAOOB1 = new CommonSearchDAO();
 			CommonSearchBean commonSearchBeanOB2 = commonSearchDAOOB1.findData(commonSearchBeanOB1);
 			actionReport = commonSearchBeanOB2.getActionReport();

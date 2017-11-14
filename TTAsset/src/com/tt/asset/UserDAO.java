@@ -965,7 +965,7 @@ public class UserDAO
 				{				
 					newEmployeeID = rs.getString("employeeid");					
 					String insertColumns="userid,usertype,vendorcompanyid,branchid,employeeid,userfirstname,userlastname,mobileno,emailid,rolename,departmentid,designationid,joiningdate,gender,status,modifiedby,modifydatetime,description";
-					String insertValues="'"+userID+"','"+newUserType+"','"+newVendorCompanyID+"','"+newBranchID+"','"+newEmployeeID+"','"+newFirstName+"','"+newLastName+"','"+newMobileNo+"','"+newEmailID+"','"+newRole+"','"+newDepartmentID+"','"+newDesignationID+"','"+newJoiningDate+"','"+newGender+"','"+newStatus+"','"+createdByUserID+"',current_timestamp,'"+description+"'";
+					String insertValues="'"+userID+"','"+newUserType+"','"+newVendorCompanyID+"','"+newBranchID+"','"+newEmployeeID+"','"+newFirstName+"','"+newLastName+"','"+newMobileNo+"','"+newEmailID+"','"+newRole+"','"+newDepartmentID+"','"+newDesignationID+"','"+newJoiningDate+"','"+newGender+"','"+newStatus+"','"+createdByUserID+"',(select to_char(current_timestamp,'DD-MM-YYYY HH24:MI:SS') from dual),'"+description+"'";
 					String insertQuery = "insert into userlog("+insertColumns+") values("+insertValues+")";
 					stmt.executeQuery(insertQuery);
 					actionResult = "Success";

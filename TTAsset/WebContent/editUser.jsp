@@ -132,7 +132,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
     											userBeanOB1 = new UserBean();        										
   												if("rootadmin".equals(currentSessionUserRole))
   												{
-	      											userBeanOB1.setSearchQuery(" where employeeid!='adminuser'");
+	      											userBeanOB1.setSearchQuery(" where employeeid!='rootadmin'");
   													//userTypeBeanOB1.setSearchQuery(" where usertype like '%%'");
   												}
   												else if("companyadmin".equals(currentSessionUserRole))
@@ -478,7 +478,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 								if("rootadmin".equals(currentSessionUserRole))
 								{
 									//userBeanOB1.setSearchQuery(" where companyid like '%%'");
-									userBeanOB1.setSearchQuery(" where employeeid!='adminuser' and "+companyFilter+" and "+userTypeFilter+" and +"+userStatusFilter);
+									userBeanOB1.setSearchQuery(" where employeeid!='rootadmin' and "+companyFilter+" and "+userTypeFilter+" and +"+userStatusFilter);
 								}
 								else if("companyadmin".equals(currentSessionUserRole))
 								{
@@ -612,7 +612,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 									<tr>
 										<td><%=i+1%></td>
 										<%
-										if("adminuser".equals(currentSessionUserRole))
+										if("rootadmin".equals(currentSessionUserRole))
 										{
 										%>
 											<td><%=companyName%></td>							
@@ -805,7 +805,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 						<thead>
 							<tr>						
 								<%
-								if("adminuser".equals(currentSessionUserRole))
+								if("rootadmin".equals(currentSessionUserRole))
 								{
 								%>
 									<th>CompanyName</th>											
@@ -839,7 +839,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 						<tbody>						
 							<tr>								
 								<%
-								if("adminuser".equals(currentSessionUserRole))
+								if("rootadmin".equals(currentSessionUserRole))
 								{
 								%>
 									<td><%=companyName%></td>							
@@ -895,8 +895,15 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 											<input type="hidden" name="onChangeValue" value="updateUser">																				  										      
 											<select class="form-control" name="newUserType" onchange="this.form.submit()">    																				
 												<%
-        										UserTypeBean userTypeBeanOB1 = new UserTypeBean();      										
-      											userTypeBeanOB1.setSearchQuery(" where usertype like '%%'");      											      										
+        										UserTypeBean userTypeBeanOB1 = new UserTypeBean();
+    	  										if(currentSessionUserRole.equals("rootadmin"))
+    	  										{
+    	  											userTypeBeanOB1.setSearchQuery(" where usertype='employee'");
+    	  										}
+    	  										else
+    	  										{
+    	  											userTypeBeanOB1.setSearchQuery(" where usertype like '%%'");
+    	  										}
       											List<UserTypeBean> userTypeBeanOB2 = new ArrayList<UserTypeBean>();
       											userTypeBeanOB2.add(userTypeBeanOB1);
       											UserTypeDAO userTypeDAOOB1 = new UserTypeDAO();
