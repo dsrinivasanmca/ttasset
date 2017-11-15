@@ -132,7 +132,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
     											userBeanOB1 = new UserBean();        										
   												if("rootadmin".equals(currentSessionUserRole))
   												{
-	      											userBeanOB1.setSearchQuery(" where employeeid!='rootadmin'");
+	      											userBeanOB1.setSearchQuery(" where employeeid!='adminuser'");
   													//userTypeBeanOB1.setSearchQuery(" where usertype like '%%'");
   												}
   												else if("companyadmin".equals(currentSessionUserRole))

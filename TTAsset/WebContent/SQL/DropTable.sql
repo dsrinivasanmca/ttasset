@@ -1,3 +1,34 @@
+1. companies
+2. companylog
+3. branches
+4. branchlog
+5. rooms
+6. roomlog
+7. departments
+8. departmentlog
+9. designations
+10. designationlog
+11. roles
+12. usertypes
+13. users
+14. userlog
+15. vendorcompanies
+16. vendorcompanylog
+
+
+
+Sequences:
+==========
+
+1. companyid
+2. branchid
+3. roomid
+4. departmentid
+5. designationid
+6. userid
+7. vendorcompanyid
+
+
 alter table companies drop constraint companies_createdby_fk;
 alter table companies drop constraint companyname_unique;
 
