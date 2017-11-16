@@ -311,11 +311,11 @@ public class UserServlet extends HttpServlet {
 									int userID = Integer.valueOf(request.getParameter("userID"));
 									String orgUserType = request.getParameter("orgUserType");
 									String newUserType = request.getParameter("newUserType");
-									String oldUserType = request.getParameter("oldUserType");					
+									String oldUserType = request.getParameter("oldUserType");									
 									if(!newUserType.equals(oldUserType))
 									{						
 										session.setAttribute("newUserType",newUserType);
-										session.setAttribute("oldUserType",newUserType);											
+										session.setAttribute("oldUserType",newUserType);																			
 									}
 									else
 									{
@@ -399,84 +399,96 @@ public class UserServlet extends HttpServlet {
 												}
 												String newRoleName=request.getParameter("newRoleName");
 												String oldRoleName=request.getParameter("oldRoleName");
-												int newDepartmentID = Integer.valueOf(request.getParameter("newDepartmentID"));
-												int oldDepartmentID = Integer.valueOf(request.getParameter("oldDepartmentID"));
-												int newDesignationID = Integer.valueOf(request.getParameter("newDesignationID"));
-												int oldDesignationID = Integer.valueOf(request.getParameter("oldDesignationID"));
-												String newGender = request.getParameter("newGender");
-												String oldGender = request.getParameter("oldGender");
-												int oldStatus = Integer.valueOf(request.getParameter("oldStatus"));
-												int newStatus = Integer.valueOf(request.getParameter("newStatus"));												
-												if(orgUserType.equals(new1UserType) && oldVendorCompanyID == new1VendorCompanyID && oldBranchID == newBranchID && oldEmployeeID.equals(newEmployeeID) && "".equals(newLoginPassword) && "".equals(newConfirmLoginPassword) && oldUserFirstName.equals(newUserFirstName) && oldUserLastName.equals(newUserLastName) && oldMobileNo.equals(newMobileNo) && oldEmailID.equals(newEmailID) && oldJoiningDate.equals(newJoiningDate) && oldRoleName.equals(newRoleName) && oldDepartmentID == newDepartmentID && oldDesignationID == newDesignationID && oldGender.equals(newGender) && oldStatus == newStatus)
-												{	
-													session.setAttribute("Message1","No Changes Occured");
-													session.setAttribute("AlertMessage1","Info!");
-													session.setAttribute("AlertType1","alert-info");				    
+												if(newRoleName.equals("selectrolename"))
+												{
+													session.setAttribute("Message1","Select RoleName");
+													session.setAttribute("AlertMessage1","Error!");
+													session.setAttribute("AlertType1","alert-danger");								
 												}
 												else
 												{
-													int currentSessionUserID = (Integer)session.getAttribute("currentSessionUserID");
-													UserBean userBeanOB1 = new UserBean();
-													userBeanOB1.setUserID(userID);
-													userBeanOB1.setCreatedByUserID(currentSessionUserID);
-													userBeanOB1.setUserType(new1UserType);
-													userBeanOB1.setOldUserType(orgUserType);									
-													userBeanOB1.setUserVendorCompanyID(new1VendorCompanyID);
-													userBeanOB1.setOldUserVendorCompanyID(oldVendorCompanyID);
-													userBeanOB1.setUserBranchID(newBranchID);
-													userBeanOB1.setOldUserBranchID(oldBranchID);
-													userBeanOB1.setUserPassword(newLoginPassword);
-													userBeanOB1.setUserDepartmentID(newDepartmentID);
-													userBeanOB1.setOldUserDepartmentID(oldDepartmentID);
-													userBeanOB1.setUserDesignationID(newDesignationID);
-													userBeanOB1.setOldUserDesignationID(oldDesignationID);
-													userBeanOB1.setUserEmployeeID(newEmployeeID);
-													userBeanOB1.setOldUserEmployeeID(oldEmployeeID);
-													userBeanOB1.setUserFirstName(newUserFirstName);
-													userBeanOB1.setOldUserFirstName(oldUserFirstName);	
-													userBeanOB1.setUserLastName(newUserLastName);
-													userBeanOB1.setOldUserLastName(oldUserLastName);
-													userBeanOB1.setUserMobileNo(newMobileNo);
-													userBeanOB1.setOldUserMobileNo(oldMobileNo);
-													userBeanOB1.setUserEmailID(newEmailID);
-													userBeanOB1.setOldUserEmailID(oldEmailID);
-													userBeanOB1.setUserJoiningDate(newJoiningDateString);
-													userBeanOB1.setOldUserJoiningDate(oldJoiningDateString);
-													userBeanOB1.setUserRole(newRoleName);
-													userBeanOB1.setOldUserRole(oldRoleName);
-													userBeanOB1.setUserStatus(newStatus);
-													userBeanOB1.setOldUserStatus(oldStatus);
-													userBeanOB1.setUserGender(newGender);
-													userBeanOB1.setOldUserGender(oldGender);									
-													UserDAO userDAOOB1 = new UserDAO();									
-													UserBean userBeanOB2 = userDAOOB1.editUser(userBeanOB1);
-													String actionResult=userBeanOB2.getActionResult();
-													String actionReport=userBeanOB2.getActionReport();
-													selectedUserStatus = userBeanOB2.getUserStatus();
-													selectedUserType = userBeanOB2.getUserType();
-													String alertType1 = null;
-													userBeanOB1 = null;
-													userBeanOB2 = null;
-													userDAOOB1 = null;
-													if("Error".equals(actionResult))
-													{					
-														alertType1="alert-danger";
+													int newDepartmentID = Integer.valueOf(request.getParameter("newDepartmentID"));
+													int oldDepartmentID = Integer.valueOf(request.getParameter("oldDepartmentID"));
+													int newDesignationID = Integer.valueOf(request.getParameter("newDesignationID"));
+													int oldDesignationID = Integer.valueOf(request.getParameter("oldDesignationID"));
+													String newGender = request.getParameter("newGender");
+													String oldGender = request.getParameter("oldGender");
+													int oldStatus = Integer.valueOf(request.getParameter("oldStatus"));
+													int newStatus = Integer.valueOf(request.getParameter("newStatus"));												
+													if(orgUserType.equals(new1UserType) && oldVendorCompanyID == new1VendorCompanyID && oldBranchID == newBranchID && oldEmployeeID.equals(newEmployeeID) && "".equals(newLoginPassword) && "".equals(newConfirmLoginPassword) && oldUserFirstName.equals(newUserFirstName) && oldUserLastName.equals(newUserLastName) && oldMobileNo.equals(newMobileNo) && oldEmailID.equals(newEmailID) && oldJoiningDate.equals(newJoiningDate) && oldRoleName.equals(newRoleName) && oldDepartmentID == newDepartmentID && oldDesignationID == newDesignationID && oldGender.equals(newGender) && oldStatus == newStatus)
+													{	
+														session.setAttribute("Message1","No Changes Occured");
+														session.setAttribute("AlertMessage1","Info!");
+														session.setAttribute("AlertType1","alert-info");				    
 													}
 													else
-													{	
-														if("Success".equals(actionResult))
-														{						
-															alertType1="alert-success";
+													{
+														int currentSessionUserID = (Integer)session.getAttribute("currentSessionUserID");
+														UserBean userBeanOB1 = new UserBean();
+														userBeanOB1.setUserID(userID);
+														userBeanOB1.setCreatedByUserID(currentSessionUserID);
+														userBeanOB1.setUserType(new1UserType);
+														userBeanOB1.setOldUserType(orgUserType);									
+														userBeanOB1.setUserVendorCompanyID(new1VendorCompanyID);
+														userBeanOB1.setOldUserVendorCompanyID(oldVendorCompanyID);
+														userBeanOB1.setUserBranchID(newBranchID);
+														userBeanOB1.setOldUserBranchID(oldBranchID);
+														userBeanOB1.setUserPassword(newLoginPassword);
+														userBeanOB1.setUserDepartmentID(newDepartmentID);
+														userBeanOB1.setOldUserDepartmentID(oldDepartmentID);
+														userBeanOB1.setUserDesignationID(newDesignationID);
+														userBeanOB1.setOldUserDesignationID(oldDesignationID);
+														userBeanOB1.setUserEmployeeID(newEmployeeID);
+														userBeanOB1.setOldUserEmployeeID(oldEmployeeID);
+														userBeanOB1.setUserFirstName(newUserFirstName);
+														userBeanOB1.setOldUserFirstName(oldUserFirstName);	
+														userBeanOB1.setUserLastName(newUserLastName);
+														userBeanOB1.setOldUserLastName(oldUserLastName);
+														userBeanOB1.setUserMobileNo(newMobileNo);
+														userBeanOB1.setOldUserMobileNo(oldMobileNo);
+														userBeanOB1.setUserEmailID(newEmailID);
+														userBeanOB1.setOldUserEmailID(oldEmailID);
+														userBeanOB1.setUserJoiningDate(newJoiningDateString);
+														userBeanOB1.setOldUserJoiningDate(oldJoiningDateString);
+														userBeanOB1.setUserRole(newRoleName);
+														userBeanOB1.setOldUserRole(oldRoleName);
+														userBeanOB1.setUserStatus(newStatus);
+														userBeanOB1.setOldUserStatus(oldStatus);
+														userBeanOB1.setUserGender(newGender);
+														userBeanOB1.setOldUserGender(oldGender);									
+														UserDAO userDAOOB1 = new UserDAO();									
+														UserBean userBeanOB2 = userDAOOB1.editUser(userBeanOB1);
+														String actionResult=userBeanOB2.getActionResult();
+														String actionReport=userBeanOB2.getActionReport();
+														selectedUserStatus = userBeanOB2.getUserStatus();
+														selectedUserType = userBeanOB2.getUserType();
+														newVendorCompanyID = userBeanOB2.getUserVendorCompanyID();
+														String alertType1 = null;
+														userBeanOB1 = null;
+														userBeanOB2 = null;
+														userDAOOB1 = null;
+														if("Error".equals(actionResult))
+														{					
+															alertType1="alert-danger";
 														}
-													}													
-													session.setAttribute("Message1",actionReport);
-													session.setAttribute("AlertMessage1",actionResult+"!");
-													session.setAttribute("AlertType1",alertType1);
-													session.setAttribute("selectedUserType",selectedUserType);
-													session.setAttribute("oldSelectedUserType",selectedUserType);
-													session.setAttribute("selectedUserStatus",selectedUserStatus);
-													session.setAttribute("oldSelectedUserStatus",selectedUserStatus);
-												}	
+														else
+														{	
+															if("Success".equals(actionResult))
+															{						
+																alertType1="alert-success";
+															}
+														}													
+														session.setAttribute("Message1",actionReport);
+														session.setAttribute("AlertMessage1",actionResult+"!");
+														session.setAttribute("AlertType1",alertType1);
+														session.setAttribute("selectedUserType",selectedUserType);
+														session.setAttribute("oldSelectedUserType",selectedUserType);
+														session.setAttribute("selectedUserStatus",selectedUserStatus);
+														session.setAttribute("oldSelectedUserStatus",selectedUserStatus);
+														session.setAttribute("newVendorCompanyID",newVendorCompanyID);
+														session.setAttribute("oldVendorCompanyID",newVendorCompanyID);
+													}
+												}
 											}						
 										}
 									}
@@ -499,12 +511,15 @@ public class UserServlet extends HttpServlet {
 										UserDAO userDAOOB1 = new UserDAO();
 										List<UserBean> userBeanOB3 = userDAOOB1.viewUser(userBeanOB2);						
 										String newUserType = userBeanOB3.get(0).getUserType();
+										int newVendorCompanyID = userBeanOB3.get(0).getUserVendorCompanyID();
 										userBeanOB1 = null;
 										userBeanOB2 = null;
 										userBeanOB3 = null;
 										userDAOOB1 = null; 						
 										session.setAttribute("newUserType",newUserType);
-										session.setAttribute("oldUserType",newUserType);
+										session.setAttribute("oldUserType",newUserType);										
+										session.setAttribute("newVendorCompanyID",newVendorCompanyID);
+										session.setAttribute("oldVendorCompanyID",newVendorCompanyID);
 									}
 									session.setAttribute("selectedUserID",selectedUserID);
 									response.sendRedirect(sourceJSP);

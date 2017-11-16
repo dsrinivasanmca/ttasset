@@ -653,11 +653,11 @@ public class UserDAO
 				}
 				else
 				{
-					updateQuery = updateQuery.concat(",usertype='"+newUserType+"',");
+					updateQuery = updateQuery.concat(",usertype='"+newUserType+"'");
 				}	
 				if("".equals(description))
 				{
-					description = "UserType";				
+					description = "UserType ";				
 				}
 				else
 				{
@@ -672,7 +672,7 @@ public class UserDAO
 				}
 				else
 				{
-					updateQuery = updateQuery.concat(",vendorcompanyid='"+newVendorCompanyID+"',");
+					updateQuery = updateQuery.concat(",vendorcompanyid='"+newVendorCompanyID+"'");
 				}	
 				if("".equals(description))
 				{
@@ -699,7 +699,7 @@ public class UserDAO
 				}
 				else
 				{
-					description = description.concat(",BranchID");
+					description = description.concat(",BranchID ");
 				}
 			}									
 			if(!oldEmployeeID.equals(newEmployeeID))
@@ -715,11 +715,11 @@ public class UserDAO
 				}	
 				if("".equals(description))
 				{
-					description = "EmployeeID";				
+					description = "EmployeeID ";				
 				}
 				else
 				{
-					description = description.concat(",EmployeeID");
+					description = description.concat(",EmployeeID ");
 				}
 			}			
 			if(!"".equals(newLoginPassword))
@@ -737,11 +737,11 @@ public class UserDAO
 				}	
 				if("".equals(description))
 				{
-					description = "Password";				
+					description = "Password ";				
 				}
 				else
 				{
-					description = description.concat(",Password");
+					description = description.concat(",Password ");
 				}										
 			}									
 			if(!oldFirstName.equals(newFirstName))
@@ -795,7 +795,7 @@ public class UserDAO
 				}	
 				if("".equals(description))
 				{
-					description = "MobileNo ";				
+					description = "MobileNo";				
 				}
 				else
 				{
@@ -895,7 +895,7 @@ public class UserDAO
 					description = "Designation";				
 				}
 				else
-				{
+				{ 
 					description = description.concat(",Designation");
 				}
 			}									
@@ -947,7 +947,8 @@ public class UserDAO
 			{
 				con = ConnectionManager.getConnection();
 				stmt = con.createStatement();
-				String updateQuery1="update users set "+updateQuery+ " where userid='"+userID+"'";			
+				String updateQuery1="update users set "+updateQuery+ " where userid='"+userID+"'";
+				System.out.println(updateQuery1);
 				stmt.executeQuery(updateQuery1);
 				//String searchQuery = "select employeeid from users where userid='"+userID+"' and usertype='"+newUserType+"' and vendorcompanyid='"+newVendorCompanyID+"' and branchid='"+newBranchID+"' and employeeid='"+newEmployeeID+"' and userfirstname='"+newFirstName+"' and userlastname='"+newLastName+"' and mobileno='"+newMobileNo+"' and emailid='"+newEmailID+"' and joiningdate<='"+newJoiningDateString+"' and rolename='"+newRole+"' and departmentid='"+newDepartmentID+"' and designationid='"+newDesignationID+"' and gender='"+newGender+"' and status='"+newStatus+"'";																	
 				String searchQuery = "select employeeid from users where userid='"+userID+"' and usertype='"+newUserType+"' and vendorcompanyid='"+newVendorCompanyID+"' and branchid='"+newBranchID+"' and employeeid='"+newEmployeeID+"' and userfirstname='"+newFirstName+"' and userlastname='"+newLastName+"' and mobileno='"+newMobileNo+"' and emailid='"+newEmailID+"' and joiningdate = '"+newJoiningDate+"' and rolename='"+newRole+"' and departmentid='"+newDepartmentID+"' and designationid='"+newDesignationID+"' and gender='"+newGender+"' and status='"+newStatus+"'";

@@ -202,16 +202,9 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 	  	  									<select class="form-control" name="selectedUserType" required onchange="this.form.submit()">  	    							
 		    										<option value="">Select UserType</option>
     											<%
-    											userBeanOB1 = new UserBean();        										
-  												if("rootadmin".equals(currentSessionUserRole))
-  												{
-	      											userBeanOB1.setSearchQuery(" where "+companyFilter);
-  													//userTypeBeanOB1.setSearchQuery(" where usertype like '%%'");
-  												}
-  												else if("companyadmin".equals(currentSessionUserRole))
-  												{
-	      											userBeanOB1.setSearchQuery(" where userid='"+currentSessionUserID+"'");      											
-  												}
+    											userBeanOB1 = new UserBean();  												
+	      										userBeanOB1.setSearchQuery(" where "+companyFilter);
+  												//userTypeBeanOB1.setSearchQuery(" where usertype like '%%'");  												
   												userBeanOB2 = new ArrayList<UserBean>();
   												userBeanOB2.add(userBeanOB1);
   												userDAOOB1 = new UserDAO();
@@ -491,17 +484,17 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 								}
 								else
 								{
-									companyBeanOB1 = new CompanyBean();
-									companyBeanOB1.setSearchQuery(" where companyid='"+companyID+"'");
-									companyBeanOB2 = new ArrayList<CompanyBean>();
-									companyBeanOB2.add(companyBeanOB1);
-									companyDAOOB1 = new CompanyDAO();
-									companyBeanOB3 = companyDAOOB1.viewCompany(companyBeanOB2);
-									vendorCompanyName = cfl.capitalizeName(companyBeanOB3.get(0).getCompanyName());
-									companyBeanOB1 = null;
-									companyBeanOB2 = null;
-									companyBeanOB3 = null;
-									companyDAOOB1 = null;
+									VendorCompanyBean vendorCompanyBeanOB1 = new VendorCompanyBean();
+									vendorCompanyBeanOB1.setSearchQuery(" where vendorcompanyid='"+vendorCompanyID+"'");
+									List<VendorCompanyBean> vendorCompanyBeanOB2 = new ArrayList<VendorCompanyBean>();
+									vendorCompanyBeanOB2.add(vendorCompanyBeanOB1);		
+									VendorCompanyDAO vendorCompanyDAOOB1 = new VendorCompanyDAO();
+									List<VendorCompanyBean> vendorCompanyBeanOB3 = vendorCompanyDAOOB1.viewVendorCompany(vendorCompanyBeanOB2);
+									vendorCompanyName = cfl.capitalizeName(vendorCompanyBeanOB3.get(0).getVendorCompanyName());
+									vendorCompanyBeanOB1 = null;
+									vendorCompanyBeanOB2 = null;
+									vendorCompanyBeanOB3 = null;
+									vendorCompanyDAOOB1 = null;
 								}
 								userID = userBeanOB3.get(i).getUserID();
 								userType = cfl.capitalizeName(userBeanOB3.get(i).getUserType());
@@ -768,17 +761,17 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 							}
 							else
 							{
-								companyBeanOB1 = new CompanyBean();
-								companyBeanOB1.setSearchQuery(" where companyid='"+vendorCompanyID+"'");
-								companyBeanOB2 = new ArrayList<CompanyBean>();
-								companyBeanOB2.add(companyBeanOB1);
-								companyDAOOB1 = new CompanyDAO();
-								companyBeanOB3 = companyDAOOB1.viewCompany(companyBeanOB2);
-								vendorCompanyName = cfl.capitalizeName(companyBeanOB3.get(0).getCompanyName());
-								companyBeanOB1 = null;
-								companyBeanOB2 = null;
-								companyBeanOB3 = null;
-								companyDAOOB1 = null;
+								VendorCompanyBean vendorCompanyBeanOB1 = new VendorCompanyBean();
+								vendorCompanyBeanOB1.setSearchQuery(" where vendorcompanyid='"+vendorCompanyID+"'");
+								List<VendorCompanyBean> vendorCompanyBeanOB2 = new ArrayList<VendorCompanyBean>();
+								vendorCompanyBeanOB2.add(vendorCompanyBeanOB1);		
+								VendorCompanyDAO vendorCompanyDAOOB1 = new VendorCompanyDAO();
+								List<VendorCompanyBean> vendorCompanyBeanOB3 = vendorCompanyDAOOB1.viewVendorCompany(vendorCompanyBeanOB2);
+								vendorCompanyName = cfl.capitalizeName(vendorCompanyBeanOB3.get(0).getVendorCompanyName());
+								vendorCompanyBeanOB1 = null;
+								vendorCompanyBeanOB2 = null;
+								vendorCompanyBeanOB3 = null;
+								vendorCompanyDAOOB1 = null;
 							}							
 							userType = cfl.capitalizeName(userBeanOB3.get(j).getUserType());
 							employeeID = userBeanOB3.get(j).getUserEmployeeID();

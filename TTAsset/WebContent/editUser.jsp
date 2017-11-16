@@ -518,17 +518,17 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 									}
 									else
 									{
-										companyBeanOB1 = new CompanyBean();
-										companyBeanOB1.setSearchQuery(" where companyid='"+companyID+"'");
-										companyBeanOB2 = new ArrayList<CompanyBean>();
-										companyBeanOB2.add(companyBeanOB1);
-										companyDAOOB1 = new CompanyDAO();
-										companyBeanOB3 = companyDAOOB1.viewCompany(companyBeanOB2);
-										vendorCompanyName = cfl.capitalizeName(companyBeanOB3.get(0).getCompanyName());
-										companyBeanOB1 = null;
-										companyBeanOB2 = null;
-										companyBeanOB3 = null;
-										companyDAOOB1 = null;
+										VendorCompanyBean vendorCompanyBeanOB1 = new VendorCompanyBean();
+										vendorCompanyBeanOB1.setSearchQuery(" where vendorcompanyid='"+vendorCompanyID+"'");
+										List<VendorCompanyBean> vendorCompanyBeanOB2 = new ArrayList<VendorCompanyBean>();
+										vendorCompanyBeanOB2.add(vendorCompanyBeanOB1);		
+										VendorCompanyDAO vendorCompanyDAOOB1 = new VendorCompanyDAO();
+										List<VendorCompanyBean> vendorCompanyBeanOB3 = vendorCompanyDAOOB1.viewVendorCompany(vendorCompanyBeanOB2);
+										vendorCompanyName = cfl.capitalizeName(vendorCompanyBeanOB3.get(0).getVendorCompanyName());
+										vendorCompanyBeanOB1 = null;
+										vendorCompanyBeanOB2 = null;
+										vendorCompanyBeanOB3 = null;
+										vendorCompanyDAOOB1 = null;
 									}
 									userID = userBeanOB3.get(i).getUserID();
 									userType = cfl.capitalizeName(userBeanOB3.get(i).getUserType());
@@ -649,7 +649,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 										</td>
 										<td>
 											<input type="hidden" name="sourceJSP" value="editUser.jsp"></input>
-											<input type="hidden" name="newUserType" value="<%=newUserType%>"></input>
+											<input type="hidden" name="newUserType" value="<%=newUserType%>"></input>											
 											<button type="submit" class="btn btn-info btn-sm" name="submitValue" value="<%=userID%>">Edit</button>
 										</td>
 									</tr>
@@ -674,8 +674,6 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 				userBeanOB2.add(userBeanOB1);				
 				userDAOOB1 = new UserDAO();
 				List<UserBean> userBeanOB3 = userDAOOB1.viewUser(userBeanOB2);
-				oldUserType=(String) session.getAttribute("oldUserType");
-				newUserType=(String) session.getAttribute("newUserType");
 				companyID = userBeanOB3.get(0).getUserCompanyID();						
 				CompanyBean companyBeanOB1 = new CompanyBean();
 				companyBeanOB1.setSearchQuery(" where companyid='"+companyID+"'");
@@ -694,18 +692,18 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 					vendorCompanyName = companyName;
 				}
 				else
-				{
-					companyBeanOB1 = new CompanyBean();
-					companyBeanOB1.setSearchQuery(" where companyid='"+vendorCompanyID+"'");
-					companyBeanOB2 = new ArrayList<CompanyBean>();
-					companyBeanOB2.add(companyBeanOB1);
-					companyDAOOB1 = new CompanyDAO();
-					companyBeanOB3 = companyDAOOB1.viewCompany(companyBeanOB2);
-					vendorCompanyName = cfl.capitalizeName(companyBeanOB3.get(0).getCompanyName());
-					companyBeanOB1 = null;
-					companyBeanOB2 = null;
-					companyBeanOB3 = null;
-					companyDAOOB1 = null;
+				{										
+					VendorCompanyBean vendorCompanyBeanOB1 = new VendorCompanyBean();
+					vendorCompanyBeanOB1.setSearchQuery(" where vendorcompanyid='"+vendorCompanyID+"'");
+					List<VendorCompanyBean> vendorCompanyBeanOB2 = new ArrayList<VendorCompanyBean>();
+					vendorCompanyBeanOB2.add(vendorCompanyBeanOB1);		
+					VendorCompanyDAO vendorCompanyDAOOB1 = new VendorCompanyDAO();
+					List<VendorCompanyBean> vendorCompanyBeanOB3 = vendorCompanyDAOOB1.viewVendorCompany(vendorCompanyBeanOB2);
+					vendorCompanyName = cfl.capitalizeName(vendorCompanyBeanOB3.get(0).getVendorCompanyName());
+					vendorCompanyBeanOB1 = null;
+					vendorCompanyBeanOB2 = null;
+					vendorCompanyBeanOB3 = null;
+					vendorCompanyDAOOB1 = null;
 				}
 				userID = userBeanOB3.get(0).getUserID();
 				userType = cfl.capitalizeName(userBeanOB3.get(0).getUserType());
@@ -790,7 +788,7 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 				<input type="hidden" name="selectedUserType" value=<%=selectedUserType%>>
 				<input type="hidden" name="oldSelectedUserType" value=<%=oldSelectedUserType%>>
 				<input type="hidden" name="selectedUserStatus" value=<%=selectedUserStatus%>>
-				<input type="hidden" name="oldSelectedUserStatus" value=<%=oldSelectedUserStatus%>> 		
+				<input type="hidden" name="oldSelectedUserStatus" value=<%=oldSelectedUserStatus%>>				 	
 				<div class="container-fluid">
 					<div class="row">
 						<div class="panel panel-primary">
@@ -889,7 +887,11 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 									<input type="hidden" class="form-control" name="userID" value="<%=userID%>">  								
     								<div class="form-group">  
     	  								<label class="control-label col-sm-4" for="userType">UserType</label>
-										<div class="col-sm-8">										
+										<div class="col-sm-8">
+											<%
+											oldUserType=(String) session.getAttribute("oldUserType");
+											newUserType=(String) session.getAttribute("newUserType");
+											%>										
 											<input type="hidden" name="orgUserType" value=<%=userType.toLowerCase()%>>
 											<input type="hidden" name="oldUserType" value=<%=oldUserType%>>
 											<input type="hidden" name="onChangeValue" value="updateUser">																				  										      
@@ -936,8 +938,23 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
 									</div>
 									<div class="form-group">  
   		      							<label class="control-label col-sm-4" for="status">Vendor Company</label>
-  	  									<div class="col-sm-8">  	  									
-											<input type="hidden" name="oldVendorCompanyID" value=<%=vendorCompanyID%>>  										        
+  	  									<div class="col-sm-8">
+  	  										<%
+  	  										int oldVendorCompanyID=(Integer) session.getAttribute("oldVendorCompanyID");
+  		      								int newVendorCompanyID=(Integer) session.getAttribute("newVendorCompanyID");
+											%>  	  									
+											<input type="hidden" name="oldVendorCompanyID" value=<%=oldVendorCompanyID%>>
+											<%      										
+      										VendorCompanyBean vendorCompanyBeanOB1 = new VendorCompanyBean();
+      										vendorCompanyBeanOB1.setSearchQuery(" where companyid='"+selectedCompanyID+"' and status=1");
+      										List<VendorCompanyBean> vendorCompanyBeanOB2 = new ArrayList<VendorCompanyBean>();
+      										vendorCompanyBeanOB2.add(vendorCompanyBeanOB1);		
+      										VendorCompanyDAO vendorCompanyDAOOB1 = new VendorCompanyDAO();
+      										List<VendorCompanyBean> vendorCompanyBeanOB3 = vendorCompanyDAOOB1.viewVendorCompany(vendorCompanyBeanOB2);
+      										int noOfVendorCompanies = vendorCompanyBeanOB3.size();
+      										//int vendorCompanyID;
+  											//String vendorCompanyName = null;
+  	  									%>  										        
   	    									<select class="form-control" name="newVendorCompanyID">
   	    										<%
   												if("employee".equals(newUserType))
@@ -947,13 +964,36 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
   	    										<%
   												}
   												else if(!"employee".equals(newUserType))
-  												{  																
-  	  	  										%>
-		  	  	    									<option value="0">Select Vendor Company</option>
-  	  	    									<%
-  	  											}  											
+  												{
+  												%>
+  		  	  	    								<option value="">Select Vendor Company</option>
+  		  	  	    							<%
+  	    											for(int i=0;i<noOfVendorCompanies;i++)
+													{
+  	    												vendorCompanyID = vendorCompanyBeanOB3.get(i).getVendorCompanyID();
+  	    												vendorCompanyName = vendorCompanyBeanOB3.get(i).getVendorCompanyName().toUpperCase();
+														if(newVendorCompanyID == vendorCompanyID)
+														{
+											 			%>
+															<option value=<%=vendorCompanyID%> selected><%=vendorCompanyName%></option>
+														<%											
+														}
+														else
+														{
+														%>	
+															<option value=<%=vendorCompanyID%>><%=vendorCompanyName%></option>
+														<%	
+														}
+													}  	    										
+  	    										}  	  																		
   	    										%>  	    						    										    										
-											</select>							  
+											</select>
+											<%
+											vendorCompanyBeanOB1 = null;
+											vendorCompanyBeanOB2 = null;
+											vendorCompanyBeanOB3 = null;
+											vendorCompanyDAOOB1 = null;
+											%>							  
 										</div>
 									</div>
 									<div class="form-group">  
@@ -1089,7 +1129,8 @@ if( session != null && session.getAttribute("currentSessionUserID") != null && s
       									<label class="control-label col-sm-4" for="role">Role</label>  
       									<div class="col-sm-8">
       										<input type="hidden" name="oldRoleName" value="<%=roleName%>">  
-        									<select class="form-control" name="newRoleName">  	    									
+        									<select class="form-control" name="newRoleName">
+        										<option value="selectrolename">Select Role</option>  	    									
         										<%
         										RoleBean roleBeanOB1 = new RoleBean();      									
       											if("employee".equals(newUserType.toLowerCase()))

@@ -360,7 +360,7 @@
       										{
       											if("employee".equals(userType))
       											{
-      												roleBeanOB1.setSearchQuery(" where rolename!='rootadmin'");	
+      												roleBeanOB1.setSearchQuery(" where rolename!='rootadmin' and rolename!='guest'");	
       											}
       											else if(!"employee".equals(userType))
       											{
